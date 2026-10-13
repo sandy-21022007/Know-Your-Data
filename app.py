@@ -80,9 +80,8 @@ def main():
             
             st.markdown("<br>", unsafe_allow_html=True)
             if st.button("Clear Data", use_container_width=True):
-                del st.session_state['df']
-                if 'file_name' in st.session_state:
-                    del st.session_state['file_name']
+                for k in ['df', 'file_name', 'file_info', 'excel_sheets', 'raw_file_bytes', 'current_sheet', 'report_html']:
+                    st.session_state.pop(k, None)
                 st.rerun()
 
     no_data_html = """

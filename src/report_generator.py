@@ -89,7 +89,12 @@ def _generate_duplicates_section(df: pd.DataFrame) -> str:
     html += f"<p>Number of duplicate rows: <strong>{dup_sum}</strong> ({(dup_sum/len(df)*100):.2f}%)</p>"
     if dup_sum > 0:
         html += "<h3>Sample Duplicate Rows</h3>"
-        html += df[df.duplicated(keep=False)].sort_values(by=list(df.columns)).head(10).to_html(classes='data-table')
+        dupes_sample = df[df.duplicated(keep=False)]
+        try:
+            dupes_sample = dupes_sample.sort_values(by=list(df.columns))
+        except Exception:
+            pass
+        html += dupes_sample.head(10).to_html(classes='data-table')
     html += "</div>"
     return html
 
@@ -262,7 +267,7 @@ def render(df: pd.DataFrame) -> None:
             
     with col2:
         st.subheader("Report Info")
-        st.markdown(metric_card_html("Selected Sections", str(sum(sections.values())), "document"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📄", str(sum(sections.values())), "Selected Sections"), unsafe_allow_html=True)
         
         if st.button("Generate HTML Report", type="primary", use_container_width=True):
             with st.spinner("Generating report... This may take a moment."):

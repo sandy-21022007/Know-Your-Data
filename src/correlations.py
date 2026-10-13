@@ -43,15 +43,15 @@ def render(df: pd.DataFrame) -> None:
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown(metric_card_html("Highly Correlated Pairs", str(len(pairs)), "🔗"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🔗", str(len(pairs)), "Highly Correlated Pairs"), unsafe_allow_html=True)
         
     avg_corr = corr_matrix.abs().mean().mean() if not corr_matrix.empty else 0
     with col2:
-        st.markdown(metric_card_html("Avg Abs Correlation", f"{avg_corr:.3f}", "📊"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📊", f"{avg_corr:.3f}", "Avg Abs Correlation"), unsafe_allow_html=True)
         
     strongest_pair = f"{pairs[0][0]} & {pairs[0][1]}" if pairs else "None"
     with col3:
-        st.markdown(metric_card_html("Strongest Pair", strongest_pair, "⚡"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("⚡", strongest_pair, "Strongest Pair"), unsafe_allow_html=True)
         
     st.markdown(glass_container_end(), unsafe_allow_html=True)
     
@@ -127,6 +127,10 @@ def render(df: pd.DataFrame) -> None:
             y_col = st.selectbox("Y-axis Feature", numeric_cols, index=y_idx)
             
         if x_col and y_col:
-            scatter_fig = px.scatter(df, x=x_col, y=y_col, trendline="ols", title=f"Scatter Plot: {x_col} vs {y_col}")
+            try:
+                scatter_fig = px.scatter(df, x=x_col, y=y_col, trendline="ols", title=f"Scatter Plot: {x_col} vs {y_col}")
+            except Exception:
+                scatter_fig = px.scatter(df, x=x_col, y=y_col, title=f"Scatter Plot: {x_col} vs {y_col}")
+                st.caption("Install `statsmodels` for OLS trendline.")
             style_figure(scatter_fig)
             st.plotly_chart(scatter_fig, use_container_width=True, config=CHART_CONFIG)

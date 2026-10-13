@@ -28,13 +28,13 @@ def render(df: pd.DataFrame) -> None:
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown(metric_card_html("Numeric Columns", str(len(num_cols)), "icon-number"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🔢", str(len(num_cols)), "Numeric Columns"), unsafe_allow_html=True)
     with col2:
-        st.markdown(metric_card_html("Categorical Columns", str(len(cat_cols)), "icon-category"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🏷️", str(len(cat_cols)), "Categorical Columns"), unsafe_allow_html=True)
     with col3:
         total_cols = len(df.columns)
         total_pairs = (total_cols * (total_cols - 1)) // 2
-        st.markdown(metric_card_html("Total Pairs", format_number(total_pairs), "icon-pair"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🔗", format_number(total_pairs), "Total Pairs"), unsafe_allow_html=True)
 
     # Tabs
     tab_names = []
@@ -90,7 +90,7 @@ def render(df: pd.DataFrame) -> None:
                 style_figure(fig)
                 st.plotly_chart(fig, use_container_width=True, config=CHART_CONFIG)
             except Exception as e:
-                st.error(f"Error generating scatter plot: {e}")
+                st.error(f"Error generating scatter plot: {e}. If using trendline, install 'statsmodels'.")
                 
         tab_idx += 1
         

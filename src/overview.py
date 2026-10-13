@@ -34,10 +34,10 @@ def render(df: pd.DataFrame) -> None:
     duplicate_rows = df.duplicated().sum()
     
     cols = st.columns(4)
-    cols[0].markdown(metric_card_html("Total Rows", format_number(total_rows), "📊"), unsafe_allow_html=True)
-    cols[1].markdown(metric_card_html("Total Columns", format_number(total_cols), "📋"), unsafe_allow_html=True)
-    cols[2].markdown(metric_card_html("Memory Usage", format_bytes(memory_usage), "💾"), unsafe_allow_html=True)
-    cols[3].markdown(metric_card_html("Duplicate Rows", format_number(duplicate_rows), "📑"), unsafe_allow_html=True)
+    cols[0].markdown(metric_card_html("📊", format_number(total_rows), "Total Rows"), unsafe_allow_html=True)
+    cols[1].markdown(metric_card_html("📋", format_number(total_cols), "Total Columns"), unsafe_allow_html=True)
+    cols[2].markdown(metric_card_html("💾", format_bytes(memory_usage), "Memory Usage"), unsafe_allow_html=True)
+    cols[3].markdown(metric_card_html("📑", format_number(duplicate_rows), "Duplicate Rows"), unsafe_allow_html=True)
     
     st.markdown(divider_html(), unsafe_allow_html=True)
     
@@ -69,9 +69,9 @@ def render(df: pd.DataFrame) -> None:
         cat_cols = len(get_categorical_columns(df))
         date_cols = len(get_datetime_columns(df))
         
-        st.markdown(metric_card_html("Numeric", format_number(num_cols), "🔢"), unsafe_allow_html=True)
-        st.markdown(metric_card_html("Categorical", format_number(cat_cols), "🔤"), unsafe_allow_html=True)
-        st.markdown(metric_card_html("Datetime", format_number(date_cols), "📅"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🔢", format_number(num_cols), "Numeric"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🔤", format_number(cat_cols), "Categorical"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📅", format_number(date_cols), "Datetime"), unsafe_allow_html=True)
     
     st.markdown(glass_container_end(), unsafe_allow_html=True)
     st.markdown(divider_html(), unsafe_allow_html=True)
@@ -116,7 +116,7 @@ def render(df: pd.DataFrame) -> None:
         table_html += f"""
             <tr>
                 <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>{icon} {col}</strong></td>
-                <td style="padding: 8px; border-bottom: 1px solid #eee;">{badge_html(dtype_str, type_class)}</td>
+                <td style="padding: 8px; border-bottom: 1px solid #eee;">{badge_html(dtype_str, type_class, 'info')}</td>
                 <td style="text-align: right; padding: 8px; border-bottom: 1px solid #eee;">{format_number(non_null)}</td>
                 <td style="padding: 8px; border-bottom: 1px solid #eee;">
                     <div>{format_number(null_count)} ({format_percentage(null_pct)})</div>

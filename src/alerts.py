@@ -241,7 +241,7 @@ def generate_alerts(df: pd.DataFrame) -> list[dict]:
                 except Exception:
                     try:
                         # try parse a subset to see if it's datetime
-                        pd.to_datetime(valid_series.head(100))
+                        pd.to_datetime(valid_series.head(100), format="mixed")
                         alerts.append({
                             'type': 'TYPE_MISMATCH',
                             'severity': 'MEDIUM',
@@ -317,10 +317,10 @@ def render(df: pd.DataFrame) -> None:
     
     # Summary Bar
     c1, c2, c3, c4 = st.columns(4)
-    c1.markdown(metric_card_html("High Priority 🔴", str(len(high_alerts))), unsafe_allow_html=True)
-    c2.markdown(metric_card_html("Medium Priority 🟠", str(len(medium_alerts))), unsafe_allow_html=True)
-    c3.markdown(metric_card_html("Low Priority 🟡", str(len(low_alerts))), unsafe_allow_html=True)
-    c4.markdown(metric_card_html("Info / Notes 🔵", str(len(info_alerts))), unsafe_allow_html=True)
+    c1.markdown(metric_card_html("🔴", str(len(high_alerts)), "High Priority"), unsafe_allow_html=True)
+    c2.markdown(metric_card_html("🟠", str(len(medium_alerts)), "Medium Priority"), unsafe_allow_html=True)
+    c3.markdown(metric_card_html("🟡", str(len(low_alerts)), "Low Priority"), unsafe_allow_html=True)
+    c4.markdown(metric_card_html("🔵", str(len(info_alerts)), "Info / Notes"), unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
     

@@ -67,15 +67,10 @@ def load_file(uploaded_file) -> pd.DataFrame:
         elif name.endswith((".xlsx", ".xls")):
             xls = pd.ExcelFile(raw)
             sheets = xls.sheet_names
-            if len(sheets) > 1:
-                sheet = st.selectbox(
-                    "📄 Multiple sheets detected — select one:",
-                    sheets,
-                    key="sheet_selector",
-                )
-            else:
-                sheet = sheets[0]
-            return pd.read_excel(raw, sheet_name=sheet)
+            st.session_state["excel_sheets"] = sheets
+            st.session_state["raw_file_bytes"] = uploaded_file.getvalue()
+            st.session_state["current_sheet"] = sheets[0]
+            return pd.read_excel(raw, sheet_name=sheets[0])
 
         elif name.endswith(".json"):
             try:
@@ -239,7 +234,23 @@ def _render_upload_success(df: pd.DataFrame, file_name: str) -> None:
     with st.expander("👀 Quick Preview — First 10 Rows", expanded=True):
         st.dataframe(df.head(10), use_container_width=True)
 
+    if "excel_sheets" in st.session_state and len(st.session_state["excel_sheets"]) > 1:
+        sheets = st.session_state["excel_sheets"]
+        curr = st.session_state.get("current_sheet", sheets[0])
+        idx = sheets.index(curr) if curr in sheets else 0
+        selected_sheet = st.selectbox(
+            "📄 Multiple sheets detected — choose sheet to analyze:",
+            sheets,
+            index=idx,
+            key="sheet_picker",
+        )
+        if selected_sheet != st.session_state.get("current_sheet"):
+            raw = BytesIO(st.session_state["raw_file_bytes"])
+            st.session_state["df"] = pd.read_excel(raw, sheet_name=selected_sheet)
+            st.session_state["current_sheet"] = selected_sheet
+            st.rerun()
+
     if st.button("🔄 Upload a different file", use_container_width=True):
-        for key in ["df", "file_name", "file_info"]:
+        for key in ["df", "file_name", "file_info", "excel_sheets", "raw_file_bytes", "current_sheet", "report_html"]:
             st.session_state.pop(key, None)
         st.rerun()

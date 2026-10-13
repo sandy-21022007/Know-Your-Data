@@ -324,7 +324,7 @@ def _render_patterns(safe, col_name):
     n_date = 0
     try:
         sample = safe.head(200)
-        parsed = pd.to_datetime(sample, errors="coerce", infer_datetime_format=True)
+        parsed = pd.to_datetime(sample, errors="coerce", format="mixed")
         n_date = int(parsed.notna().sum())
         if n_date < len(sample) * 0.5:
             n_date = 0  # Not convincingly date-like
@@ -395,8 +395,7 @@ def _render_value_counts(non_null, col_name):
 
     # Top 20
     top = vc.head(20)
-    top_df = top.reset_index()
-    top_df.columns = ["Value", "Count"]
+    top_df = pd.DataFrame({"Value": top.index, "Count": top.values})
     top_df["Percentage"] = (top_df["Count"] / total * 100).round(2)
 
     fig = px.bar(
@@ -415,15 +414,13 @@ def _render_value_counts(non_null, col_name):
     if len(vc) > 20:
         with st.expander("🔻 10 Rarest Values"):
             bottom = vc.tail(10)
-            bottom_df = bottom.reset_index()
-            bottom_df.columns = ["Value", "Count"]
+            bottom_df = pd.DataFrame({"Value": bottom.index, "Count": bottom.values})
             st.dataframe(bottom_df, use_container_width=True)
 
     # Frequency of frequencies
     with st.expander("📊 Frequency Distribution (how many values appear N times)"):
         freq_of_freq = vc.value_counts().sort_index()
-        ff_df = freq_of_freq.reset_index()
-        ff_df.columns = ["Occurrences", "Num Values"]
+        ff_df = pd.DataFrame({"Occurrences": freq_of_freq.index, "Num Values": freq_of_freq.values})
 
         fig = px.bar(
             ff_df.head(30), x="Occurrences", y="Num Values",

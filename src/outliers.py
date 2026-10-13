@@ -79,16 +79,16 @@ def render(df: pd.DataFrame) -> None:
                 "mask": outliers
             }
             
-    outlier_pct = total_outliers / total_data_points if total_data_points > 0 else 0
+    outlier_pct = (total_outliers / total_data_points * 100) if total_data_points > 0 else 0
     
     st.markdown(glass_container_start(), unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown(metric_card_html("Total Outliers Detected", format_number(total_outliers), "🚨"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🚨", format_number(total_outliers), "Total Outliers Detected"), unsafe_allow_html=True)
     with col2:
-        st.markdown(metric_card_html("Columns w/ Outliers", f"{cols_with_outliers} / {len(numeric_cols)}", "📋"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📋", f"{cols_with_outliers} / {len(numeric_cols)}", "Columns w/ Outliers"), unsafe_allow_html=True)
     with col3:
-        st.markdown(metric_card_html("% Outlier Data Points", format_percentage(outlier_pct), "📉"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📉", format_percentage(outlier_pct), "% Outlier Data Points"), unsafe_allow_html=True)
     st.markdown(glass_container_end(), unsafe_allow_html=True)
     
     st.subheader("Per-column Outlier Summary")

@@ -68,9 +68,9 @@ def classify_column(series: pd.Series) -> str:
         # Probe for potential datetime
         sample = series.dropna().head(50)
         try:
-            pd.to_datetime(sample, infer_datetime_format=True)
+            pd.to_datetime(sample, format="mixed")
             return "Potential Datetime"
-        except (ValueError, TypeError):
+        except Exception:
             pass
         # Low-cardinality string → categorical
         nunique = series.nunique()

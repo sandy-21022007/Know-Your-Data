@@ -36,9 +36,9 @@ def render(df: pd.DataFrame) -> None:
                 # Try on a sample first
                 sample = df[col].dropna().head(100)
                 if not sample.empty:
-                    pd.to_datetime(sample)
+                    pd.to_datetime(sample, format="mixed")
                     # If it works on sample, test the whole column
-                    pd.to_datetime(df[col])
+                    pd.to_datetime(df[col], format="mixed")
                     suggested_dtype = "datetime64[ns]"
                     reason = "Contains date/time formatted strings"
             except:
@@ -121,11 +121,11 @@ def render(df: pd.DataFrame) -> None:
     st.markdown(glass_container_start(), unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(metric_card_html("Columns to Optimize", str(len(recommendations)), "🛠️"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🛠️", str(len(recommendations)), "Columns to Optimize"), unsafe_allow_html=True)
     
-    pct_savings = total_savings / memory_before.sum() if memory_before.sum() > 0 else 0
+    pct_savings = (total_savings / memory_before.sum() * 100) if memory_before.sum() > 0 else 0
     with col2:
-        st.markdown(metric_card_html("Est. Memory Savings", f"{format_bytes(total_savings)} ({format_percentage(pct_savings)})", "💾"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("💾", f"{format_bytes(total_savings)} ({format_percentage(pct_savings)})", "Est. Memory Savings"), unsafe_allow_html=True)
     st.markdown(glass_container_end(), unsafe_allow_html=True)
     
     if not recommendations:

@@ -16,16 +16,16 @@ def render(df: pd.DataFrame) -> None:
     total_rows = len(df)
     duplicates_mask = df.duplicated(keep=False)
     duplicate_rows = duplicates_mask.sum()
-    dup_rate = duplicate_rows / total_rows if total_rows > 0 else 0
+    dup_rate = (duplicate_rows / total_rows * 100) if total_rows > 0 else 0
     
     st.markdown(glass_container_start(), unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown(metric_card_html("Total Rows", format_number(total_rows), "📊"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📊", format_number(total_rows), "Total Rows"), unsafe_allow_html=True)
     with col2:
-        st.markdown(metric_card_html("Duplicate Rows", format_number(duplicate_rows), "📑"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📑", format_number(duplicate_rows), "Duplicate Rows"), unsafe_allow_html=True)
     with col3:
-        st.markdown(metric_card_html("Duplication Rate", format_percentage(dup_rate), "📈"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📈", format_percentage(dup_rate), "Duplication Rate"), unsafe_allow_html=True)
     st.markdown(glass_container_end(), unsafe_allow_html=True)
     
     if duplicate_rows == 0:
@@ -33,7 +33,10 @@ def render(df: pd.DataFrame) -> None:
     else:
         st.subheader("Duplicate Rows Preview")
         st.markdown(f"Showing duplicate rows (max 100 out of {duplicate_rows})")
-        dupes_df = df[duplicates_mask].sort_values(by=list(df.columns))
+        try:
+            dupes_df = df[duplicates_mask].sort_values(by=list(df.columns))
+        except Exception:
+            dupes_df = df[duplicates_mask]
         st.dataframe(dupes_df.head(100), use_container_width=True)
         
     st.subheader("Column-wise Duplicate Analysis")
@@ -67,4 +70,8 @@ def render(df: pd.DataFrame) -> None:
             st.markdown(success_box_html(f"No duplicates found using subset: {', '.join(subset_cols)}"), unsafe_allow_html=True)
         else:
             st.warning(f"Found {subset_dupes_count} duplicate rows using the selected subset.")
-            st.dataframe(df[subset_dupes_mask].sort_values(by=subset_cols).head(100), use_container_width=True)
+            try:
+                subset_view = df[subset_dupes_mask].sort_values(by=subset_cols)
+            except Exception:
+                subset_view = df[subset_dupes_mask]
+            st.dataframe(subset_view.head(100), use_container_width=True)

@@ -36,11 +36,11 @@ def render(df: pd.DataFrame) -> None:
             
             mc1, mc2, mc3 = st.columns(3)
             with mc1:
-                st.markdown(metric_card_html("Numeric Columns", str(len(num_cols)), "#️⃣"), unsafe_allow_html=True)
+                st.markdown(metric_card_html("#️⃣", str(len(num_cols)), "Numeric Columns"), unsafe_allow_html=True)
             with mc2:
-                st.markdown(metric_card_html("Avg Mean", format_number(avg_mean), "📈"), unsafe_allow_html=True)
+                st.markdown(metric_card_html("📈", format_number(avg_mean), "Avg Mean"), unsafe_allow_html=True)
             with mc3:
-                st.markdown(metric_card_html("Avg Std Dev", format_number(avg_std), "📉"), unsafe_allow_html=True)
+                st.markdown(metric_card_html("📉", format_number(avg_std), "Avg Std Dev"), unsafe_allow_html=True)
                 
             for col in num_cols:
                 series = df[col].dropna()

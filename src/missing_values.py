@@ -34,13 +34,13 @@ def render(df: pd.DataFrame) -> None:
     completeness = ((total_cells - total_missing) / total_cells) * 100 if total_cells else 0
     
     with cols[0]:
-        st.markdown(metric_card_html("Total Missing Values", format_number(total_missing), "🔍"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("🔍", format_number(total_missing), "Total Missing Values"), unsafe_allow_html=True)
     with cols[1]:
-        st.markdown(metric_card_html("Columns with Missing", format_number(cols_with_missing), "📋"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📋", format_number(cols_with_missing), "Columns with Missing"), unsafe_allow_html=True)
     with cols[2]:
-        st.markdown(metric_card_html("Complete Rows", format_number(complete_rows), "✅"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("✅", format_number(complete_rows), "Complete Rows"), unsafe_allow_html=True)
     with cols[3]:
-        st.markdown(metric_card_html("Overall Completeness", format_percentage(completeness), "📊"), unsafe_allow_html=True)
+        st.markdown(metric_card_html("📊", format_percentage(completeness), "Overall Completeness"), unsafe_allow_html=True)
 
     st.markdown(divider_html(), unsafe_allow_html=True)
 
