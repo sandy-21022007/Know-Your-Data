@@ -83,17 +83,7 @@ def render(df: pd.DataFrame) -> None:
     st.markdown(divider_html(), unsafe_allow_html=True)
     st.subheader("Per-Column Missing Details")
     
-    details_html = """
-    <table style='width:100%; text-align:left; border-collapse: collapse;'>
-        <tr>
-            <th style='padding:8px; border-bottom:1px solid #333;'>Column</th>
-            <th style='padding:8px; border-bottom:1px solid #333;'>Missing Count</th>
-            <th style='padding:8px; border-bottom:1px solid #333; width:40%;'>Missing %</th>
-            <th style='padding:8px; border-bottom:1px solid #333;'>Present Count</th>
-            <th style='padding:8px; border-bottom:1px solid #333;'>Status</th>
-        </tr>
-    """
-    
+    rows = []
     for col in df.columns:
         m_count = df[col].isnull().sum()
         m_pct = (m_count / len(df)) * 100
@@ -108,16 +98,31 @@ def render(df: pd.DataFrame) -> None:
         else:
             status = badge_html("HIGH", "error")
             
-        details_html += f"""
-        <tr>
-            <td style='padding:8px; border-bottom:1px solid #222;'>{col}</td>
-            <td style='padding:8px; border-bottom:1px solid #222;'>{m_count}</td>
-            <td style='padding:8px; border-bottom:1px solid #222;'>{progress_bar_html(m_pct)}</td>
-            <td style='padding:8px; border-bottom:1px solid #222;'>{p_count}</td>
-            <td style='padding:8px; border-bottom:1px solid #222;'>{status}</td>
-        </tr>
-        """
-    details_html += "</table>"
+        prog = progress_bar_html(m_pct)
+        row_str = (
+            f"<tr>"
+            f"<td style='padding: 10px 14px;'><strong>{col}</strong></td>"
+            f"<td style='padding: 10px 14px; font-family: var(--font-mono);'>{format_number(m_count)}</td>"
+            f"<td style='padding: 10px 14px;'>{prog}</td>"
+            f"<td style='padding: 10px 14px; font-family: var(--font-mono);'>{format_number(p_count)}</td>"
+            f"<td style='padding: 10px 14px;'>{status}</td>"
+            f"</tr>"
+        )
+        rows.append(row_str)
+
+    details_html = (
+        f"<div style='overflow-x: auto; margin-top: 10px; margin-bottom: 20px;'>"
+        f"<table class='stat-table' style='width: 100%; border-collapse: separate; border-spacing: 0;'>"
+        f"<thead><tr>"
+        f"<th style='text-align: left;'>Column</th>"
+        f"<th style='text-align: left;'>Missing Count</th>"
+        f"<th style='text-align: left; width: 40%;'>Missing %</th>"
+        f"<th style='text-align: left;'>Present Count</th>"
+        f"<th style='text-align: left;'>Status</th>"
+        f"</tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody>"
+        f"</table></div>"
+    )
     st.markdown(details_html, unsafe_allow_html=True)
 
     st.markdown(divider_html(), unsafe_allow_html=True)

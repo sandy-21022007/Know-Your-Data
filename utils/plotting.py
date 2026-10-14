@@ -1,34 +1,34 @@
 """
 Know-Your-Data — Shared Plotly Theme & Plotting Utilities.
-Defines the custom 'kyd' theme applied to every chart in the app.
+Defines the Executive Dark Cyber 'kyd' theme applied to every chart in the app.
 """
 
 import plotly.graph_objects as go
 import plotly.io as pio
 
 # ──────────────────────────────────────────────
-# COLOR PALETTE
+# CYBER COLOR PALETTE
 # ──────────────────────────────────────────────
 
 COLORS = [
-    "#667eea",   # Primary purple-blue
-    "#764ba2",   # Secondary purple
-    "#00d2ff",   # Cyan accent
-    "#00c853",   # Green
-    "#ff6d00",   # Orange
-    "#ff1744",   # Red
-    "#aa00ff",   # Deep purple
-    "#2979ff",   # Blue
-    "#00e5ff",   # Light cyan
-    "#76ff03",   # Light green
-    "#f50057",   # Pink
-    "#651fff",   # Violet
-    "#00b0ff",   # Light blue
-    "#ffab00",   # Amber
-    "#69f0ae",   # Mint
+    "#00F2FE",   # Cyber Cyan
+    "#4FACFE",   # Electric Indigo
+    "#8B5CF6",   # Neon Violet
+    "#10B981",   # Emerald Success
+    "#F59E0B",   # Cyber Amber
+    "#EF4444",   # Crimson
+    "#38BDF8",   # Sky Cyber
+    "#A78BFA",   # Light Violet
+    "#34D399",   # Neon Mint
+    "#F43F5E",   # Neon Rose
+    "#06B6D4",   # Electric Teal
+    "#FBBF24",   # Neon Gold
+    "#818CF8",   # Soft Indigo
+    "#EC4899",   # Hot Pink
+    "#2DD4BF",   # Aqua
 ]
 
-GRADIENT_PAIR = ["#667eea", "#764ba2"]
+GRADIENT_PAIR = ["#00F2FE", "#4FACFE"]
 
 # ──────────────────────────────────────────────
 # PLOTLY CHART CONFIG (toolbar settings)
@@ -53,35 +53,52 @@ CHART_CONFIG = {
 
 DEFAULT_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(12,16,26,0.35)",
     font=dict(
         family="Inter, -apple-system, BlinkMacSystemFont, sans-serif",
-        color="#fafafa",
+        color="#F8FAFC",
         size=12,
     ),
-    title_font=dict(size=16, color="#fafafa"),
+    title_font=dict(
+        family="Inter, -apple-system, sans-serif",
+        size=16,
+        color="#00F2FE",
+    ),
     xaxis=dict(
-        gridcolor="rgba(255,255,255,0.06)",
-        zerolinecolor="rgba(255,255,255,0.1)",
-        tickfont=dict(color="#a0aec0"),
-        title_font=dict(color="#a0aec0"),
+        gridcolor="rgba(0,242,254,0.07)",
+        zerolinecolor="rgba(0,242,254,0.15)",
+        tickfont=dict(
+            color="#94A3B8",
+            family="JetBrains Mono, monospace",
+            size=11,
+        ),
+        title_font=dict(color="#CBD5E1", size=12),
     ),
     yaxis=dict(
-        gridcolor="rgba(255,255,255,0.06)",
-        zerolinecolor="rgba(255,255,255,0.1)",
-        tickfont=dict(color="#a0aec0"),
-        title_font=dict(color="#a0aec0"),
+        gridcolor="rgba(0,242,254,0.07)",
+        zerolinecolor="rgba(0,242,254,0.15)",
+        tickfont=dict(
+            color="#94A3B8",
+            family="JetBrains Mono, monospace",
+            size=11,
+        ),
+        title_font=dict(color="#CBD5E1", size=12),
     ),
     legend=dict(
-        bgcolor="rgba(0,0,0,0)",
-        bordercolor="rgba(255,255,255,0.1)",
-        font=dict(color="#a0aec0"),
+        bgcolor="rgba(12,16,26,0.7)",
+        bordercolor="rgba(0,242,254,0.2)",
+        borderwidth=1,
+        font=dict(color="#CBD5E1", size=11),
     ),
     margin=dict(l=50, r=30, t=50, b=40),
     hoverlabel=dict(
-        bgcolor="#1a1f2e",
-        bordercolor="rgba(102,126,234,0.5)",
-        font=dict(color="#fafafa", family="Inter, sans-serif"),
+        bgcolor="#07090E",
+        bordercolor="#00F2FE",
+        font=dict(
+            color="#F8FAFC",
+            family="JetBrains Mono, monospace",
+            size=12,
+        ),
     ),
     colorway=COLORS,
 )
@@ -125,27 +142,27 @@ def get_colorscale(name: str = "primary") -> list:
     """
     scales = {
         "primary": [
-            [0, "#0e1117"], [0.25, "#1a1f2e"],
-            [0.5, "#667eea"], [0.75, "#764ba2"], [1, "#aa00ff"],
+            [0, "#07090E"], [0.25, "#0D1B2A"],
+            [0.5, "#00F2FE"], [0.75, "#4FACFE"], [1, "#8B5CF6"],
         ],
         "diverging": [
-            [0, "#ff1744"], [0.25, "#ff6d00"],
-            [0.5, "#1a1f2e"],
-            [0.75, "#667eea"], [1, "#764ba2"],
+            [0, "#EF4444"], [0.25, "#F59E0B"],
+            [0.5, "#07090E"],
+            [0.75, "#00F2FE"], [1, "#4FACFE"],
         ],
         "sequential": [
-            [0, "#0e1117"], [0.33, "#2d3448"],
-            [0.66, "#667eea"], [1, "#00d2ff"],
+            [0, "#07090E"], [0.33, "#0E243A"],
+            [0.66, "#00F2FE"], [1, "#4FACFE"],
         ],
         "correlation": [
-            [0, "#ff1744"], [0.5, "#1a1f2e"], [1, "#667eea"],
+            [0, "#EF4444"], [0.5, "#07090E"], [1, "#00F2FE"],
         ],
         "nulls": [
-            [0, "#1a1f2e"], [1, "#ff1744"],
+            [0, "#07090E"], [1, "#EF4444"],
         ],
         "heatmap": [
-            [0, "#0e1117"], [0.2, "#1a1f2e"], [0.4, "#2d3448"],
-            [0.6, "#667eea"], [0.8, "#764ba2"], [1, "#ff1744"],
+            [0, "#07090E"], [0.25, "#0C1F38"], [0.5, "#00F2FE"],
+            [0.75, "#8B5CF6"], [1, "#EC4899"],
         ],
     }
     return scales.get(name, scales["primary"])

@@ -77,24 +77,10 @@ def render(df: pd.DataFrame) -> None:
     st.markdown(divider_html(), unsafe_allow_html=True)
     
     # 3. Column Details Table
+    # 3. Column Details Table
     st.subheader("Column Details")
     
-    table_html = """
-    <div style="overflow-x: auto;">
-        <table class="stat-table" style="width: 100%; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Column</th>
-                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Type</th>
-                    <th style="text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">Non-Null</th>
-                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Nulls</th>
-                    <th style="text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">Unique</th>
-                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;">Sample</th>
-                </tr>
-            </thead>
-            <tbody>
-    """
-    
+    rows = []
     for col in df.columns:
         dtype_str = str(df[col].dtype)
         non_null = df[col].count()
@@ -112,26 +98,35 @@ def render(df: pd.DataFrame) -> None:
                     
         type_class = classify_column(df[col])
         icon = get_column_icon(type_class)
+        prog_bar = progress_bar_html(null_pct, 'error' if null_pct > 50 else ('warning' if null_pct > 0 else 'success'))
+        badge = badge_html(dtype_str, type_class, 'info')
         
-        table_html += f"""
-            <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #eee;"><strong>{icon} {col}</strong></td>
-                <td style="padding: 8px; border-bottom: 1px solid #eee;">{badge_html(dtype_str, type_class, 'info')}</td>
-                <td style="text-align: right; padding: 8px; border-bottom: 1px solid #eee;">{format_number(non_null)}</td>
-                <td style="padding: 8px; border-bottom: 1px solid #eee;">
-                    <div>{format_number(null_count)} ({format_percentage(null_pct)})</div>
-                    {progress_bar_html(null_pct, 'error' if null_pct > 50 else ('warning' if null_pct > 0 else 'success'))}
-                </td>
-                <td style="text-align: right; padding: 8px; border-bottom: 1px solid #eee;">{format_number(unique_vals)}</td>
-                <td style="padding: 8px; border-bottom: 1px solid #eee; font-family: monospace; font-size: 0.9em; color: #666;">{sample_val}</td>
-            </tr>
-        """
+        row_str = (
+            f"<tr>"
+            f"<td style='padding: 10px 14px;'><strong>{icon} {col}</strong></td>"
+            f"<td style='padding: 10px 14px;'>{badge}</td>"
+            f"<td style='text-align: right; padding: 10px 14px; font-family: var(--font-mono);'>{format_number(non_null)}</td>"
+            f"<td style='padding: 10px 14px;'><div>{format_number(null_count)} ({format_percentage(null_pct)})</div>{prog_bar}</td>"
+            f"<td style='text-align: right; padding: 10px 14px; font-family: var(--font-mono);'>{format_number(unique_vals)}</td>"
+            f"<td style='padding: 10px 14px; font-family: var(--font-mono); color: #94A3B8;'>{sample_val}</td>"
+            f"</tr>"
+        )
+        rows.append(row_str)
         
-    table_html += """
-            </tbody>
-        </table>
-    </div>
-    """
+    table_html = (
+        f"<div style='overflow-x: auto; margin-top: 10px; margin-bottom: 20px;'>"
+        f"<table class='stat-table' style='width: 100%; border-collapse: separate; border-spacing: 0;'>"
+        f"<thead><tr>"
+        f"<th style='text-align: left;'>Column</th>"
+        f"<th style='text-align: left;'>Type</th>"
+        f"<th style='text-align: right;'>Non-Null</th>"
+        f"<th style='text-align: left;'>Nulls</th>"
+        f"<th style='text-align: right;'>Unique</th>"
+        f"<th style='text-align: left;'>Sample</th>"
+        f"</tr></thead>"
+        f"<tbody>{''.join(rows)}</tbody>"
+        f"</table></div>"
+    )
     
     st.markdown(table_html, unsafe_allow_html=True)
     st.markdown(divider_html(), unsafe_allow_html=True)
