@@ -46,6 +46,12 @@ DARK_PALETTE = """
         --bg-hover: rgba(99, 102, 241, 0.10);
         --bg-row-hover: rgba(99, 102, 241, 0.06);
         --bg-table-header: #1B2638;
+        --surface-tint: rgba(99, 102, 241, 0.10);
+        --btn-secondary-bg: #1B2638;
+        --btn-secondary-hover: rgba(99, 102, 241, 0.18);
+        --page-wash:
+            radial-gradient(1100px 520px at 80% -10%, rgba(99, 102, 241, 0.10), transparent 60%),
+            radial-gradient(900px 480px at 8% -12%, rgba(56, 189, 248, 0.06), transparent 60%);
 
         /* Typography */
         --text-primary: #F1F5F9;
@@ -117,7 +123,13 @@ LIGHT_PALETTE = """
         --bg-input: #FFFFFF;
         --bg-hover: rgba(79, 70, 229, 0.07);
         --bg-row-hover: rgba(79, 70, 229, 0.04);
-        --bg-table-header: #F8FAFC;
+        --bg-table-header: #EEF2FF;
+        --surface-tint: #EEF2FF;
+        --btn-secondary-bg: #F3F6FD;
+        --btn-secondary-hover: #E7ECFB;
+        --page-wash:
+            radial-gradient(1100px 520px at 82% -10%, rgba(79, 70, 229, 0.10), transparent 62%),
+            radial-gradient(900px 480px at 6% -12%, rgba(8, 145, 178, 0.08), transparent 60%);
 
         /* Typography */
         --text-primary: #17243A;
@@ -194,7 +206,9 @@ __PALETTE__
 
     .stApp {
         background-color: var(--bg-void) !important;
-        background-image: none !important;
+        background-image: var(--page-wash) !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
     }
 
     .main .block-container,
@@ -349,14 +363,14 @@ __PALETTE__
         width: 28px;
         height: 28px;
         border-radius: var(--radius-sm);
-        background: var(--bg-surface-elevated);
-        border: 1px solid var(--border);
+        background: var(--surface-tint);
+        border: 1px solid var(--border-luminous);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 0.9rem;
         line-height: 1;
-        color: var(--text-secondary);
+        color: var(--primary);
     }
     .metric-card .metric-delta-tag {
         font-family: var(--font-mono);
@@ -671,7 +685,7 @@ __PALETTE__
         line-height: 1;
         margin-bottom: 10px;
         display: inline-block;
-        color: var(--text-secondary);
+        color: var(--primary);
     }
     .feature-card .feature-title {
         font-size: 0.875rem;
@@ -690,7 +704,7 @@ __PALETTE__
     .stButton > button,
     .stDownloadButton > button,
     [data-testid="stFormSubmitButton"] > button {
-        background: var(--bg-surface-elevated) !important;
+        background: var(--btn-secondary-bg) !important;
         color: var(--text-primary) !important;
         border: 1px solid var(--border) !important;
         border-radius: var(--radius-md) !important;
@@ -705,7 +719,7 @@ __PALETTE__
     .stButton > button:hover,
     .stDownloadButton > button:hover,
     [data-testid="stFormSubmitButton"] > button:hover {
-        background: var(--accent-soft) !important;
+        background: var(--btn-secondary-hover) !important;
         border-color: var(--border-luminous) !important;
         color: var(--text-primary) !important;
     }
@@ -1073,8 +1087,10 @@ __PALETTE__
     }
 
     .sidebar-header {
-        padding: 4px 4px 14px;
-        border-bottom: 1px solid var(--border);
+        padding: 14px 12px 16px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: linear-gradient(160deg, var(--surface-tint) 0%, transparent 72%);
         text-align: left;
     }
     .sidebar-logo {
@@ -1142,6 +1158,25 @@ __PALETTE__
     }
 
     /* ==================== FORM CONTROL INTERNALS ==================== */
+    [data-testid="stFileUploaderDropzone"] button,
+    [data-testid="stFileUploader"] button,
+    button[data-testid="stBaseButton-secondary"] {
+        background: var(--btn-secondary-bg) !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text-primary) !important;
+        border-radius: var(--radius-md) !important;
+        font-size: 0.8125rem !important;
+        font-weight: 500 !important;
+        box-shadow: none !important;
+        transition: background-color 0.18s ease, border-color 0.18s ease !important;
+    }
+    [data-testid="stFileUploaderDropzone"] button:hover,
+    [data-testid="stFileUploader"] button:hover,
+    button[data-testid="stBaseButton-secondary"]:hover {
+        background: var(--btn-secondary-hover) !important;
+        border-color: var(--border-luminous) !important;
+        color: var(--text-primary) !important;
+    }
     [data-testid="stCheckbox"] [data-baseweb="checkbox"] > div:first-child {
         border-color: var(--border) !important;
         background-color: var(--bg-input) !important;

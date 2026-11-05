@@ -83,23 +83,23 @@ def main():
                 default_index=0,
                 styles={
                     "container": {"padding": "4px", "background-color": "transparent"},
-                    "icon": {"color": "#818CF8", "font-size": "14px"},
+                    "icon": {"color": "var(--secondary)", "font-size": "14px"},
                     "nav-link": {
                         "font-size": "13.5px",
                         "font-family": "Inter, sans-serif",
                         "text-align": "left",
                         "margin": "3px 0",
                         "padding": "9px 12px",
-                        "border-radius": "8px",
-                        "color": "#A1AEC0",
+                        "border-radius": "var(--radius-md)",
+                        "color": "var(--text-secondary)",
                         "transition": "all 0.2s ease",
                         "border": "1px solid transparent",
                     },
                     "nav-link-selected": {
-                        "background": "rgba(99, 102, 241, 0.14)",
-                        "color": "#F1F5F9",
+                        "background": "var(--accent-soft-strong)",
+                        "color": "var(--text-primary)",
                         "font-weight": "600",
-                        "border": "1px solid rgba(99, 102, 241, 0.35)",
+                        "border": "1px solid var(--border-luminous)",
                     },
                 },
             )
@@ -114,7 +114,7 @@ def main():
                 unsafe_allow_html=True,
             )
             st.markdown(
-                "<div style='font-family: var(--font-mono); font-size: 0.75rem; color: #818CF8; letter-spacing: 0.1em; margin-bottom: 8px;'>// ACTIVE DATASET STREAM</div>",
+                "<div style='font-family: var(--font-mono); font-size: 0.75rem; color: var(--secondary); letter-spacing: 0.1em; margin-bottom: 8px;'>// ACTIVE DATASET STREAM</div>",
                 unsafe_allow_html=True,
             )
 
