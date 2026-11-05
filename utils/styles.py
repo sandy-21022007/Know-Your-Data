@@ -21,9 +21,11 @@ def _active_theme() -> str:
     return "dark"
 
 
-def inject_custom_css():
-    """Inject the theme CSS matching the active Streamlit theme."""
-    palette = LIGHT_PALETTE if _active_theme() == "light" else DARK_PALETTE
+def inject_custom_css(theme: str = None):
+    """Inject the theme CSS for the requested theme ('dark' or 'light')."""
+    if theme is None:
+        theme = _active_theme()
+    palette = LIGHT_PALETTE if str(theme).strip().lower() == "light" else DARK_PALETTE
     st.markdown(BASE_CSS.replace("__PALETTE__", palette), unsafe_allow_html=True)
 
 
@@ -1137,6 +1139,31 @@ __PALETTE__
         color: var(--text-primary) !important;
     }
 
+    /* ==================== FORM CONTROL INTERNALS ==================== */
+    [data-testid="stCheckbox"] [data-baseweb="checkbox"] > div:first-child {
+        border-color: var(--border) !important;
+        background-color: var(--bg-input) !important;
+    }
+    [data-testid="stSlider"] [data-baseweb="slider"] > div > div {
+        background-color: var(--border) !important;
+    }
+    [data-testid="stSlider"] [data-baseweb="slider"] > div > div > div {
+        background-color: var(--primary) !important;
+    }
+    [data-testid="stFileUploaderDropzone"] * {
+        color: var(--text-secondary) !important;
+    }
+    [data-testid="stFileUploaderDropzone"] button,
+    [data-testid="stFileUploaderDropzone"] button * {
+        color: var(--text-primary) !important;
+    }
+    [data-testid="stTooltipContent"] {
+        background: var(--bg-surface-elevated) !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text-primary) !important;
+        border-radius: var(--radius-sm) !important;
+    }
+
     /* ==================== DIVIDERS ==================== */
     .gradient-divider {
         height: 1px;
@@ -1160,10 +1187,37 @@ __PALETTE__
     }
     ::-webkit-scrollbar-thumb:hover { background: var(--text-disabled); }
 
+    /* ==================== THEME SWITCH (TOP RIGHT) ==================== */
+    div[class*="st-key-kyd-theme-switch"] {
+        position: fixed;
+        top: 0.85rem;
+        right: 1rem;
+        width: auto !important;
+        z-index: 1000000;
+    }
+    div[class*="st-key-kyd-theme-switch"] .stButton > button {
+        background: var(--bg-surface) !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text-secondary) !important;
+        font-size: 0.75rem !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.01em !important;
+        padding: 0.35rem 0.8rem !important;
+        border-radius: 999px !important;
+        box-shadow: var(--shadow-card) !important;
+        transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+    }
+    div[class*="st-key-kyd-theme-switch"] .stButton > button:hover {
+        background: var(--bg-surface-elevated) !important;
+        border-color: var(--border-luminous) !important;
+        color: var(--text-primary) !important;
+    }
+    div[class*="st-key-kyd-theme-switch"] .stButton > button:focus {
+        box-shadow: var(--focus-ring) !important;
+    }
+
     /* ==================== STREAMLIT CHROME ==================== */
-    /* App menu stays available: it is Streamlit's theme switcher (System / Light / Dark). */
-    #MainMenu { visibility: visible; color: var(--text-muted); }
-    #MainMenu button { color: var(--text-muted) !important; }
+    #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
     header[data-testid="stHeader"] {
         background: transparent !important;

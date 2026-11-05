@@ -188,11 +188,13 @@ def _active_theme() -> str:
 # THEME SETUP
 # ──────────────────────────────────────────────
 
-def setup_plotly_theme():
-    """Register and activate the 'kyd' Plotly template for the active theme."""
+def setup_plotly_theme(theme: str = None):
+    """Register and activate the 'kyd' Plotly template for the requested theme."""
     global _ACTIVE_THEME, _ACTIVE_LAYOUT
 
-    _ACTIVE_THEME = _active_theme()
+    if theme is None:
+        theme = _active_theme()
+    _ACTIVE_THEME = "light" if str(theme).strip().lower() == "light" else "dark"
     _ACTIVE_LAYOUT = LIGHT_LAYOUT if _ACTIVE_THEME == "light" else DEFAULT_LAYOUT
 
     kyd_template = go.layout.Template(layout=go.Layout(**_ACTIVE_LAYOUT))

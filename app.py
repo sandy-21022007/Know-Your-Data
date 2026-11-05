@@ -28,8 +28,22 @@ def clean_html(html_str: str) -> str:
 
 
 def main():
-    inject_custom_css()
-    setup_plotly_theme()
+    if "kyd_theme" not in st.session_state:
+        st.session_state["kyd_theme"] = "dark"
+    theme = st.session_state["kyd_theme"]
+
+    inject_custom_css(theme)
+    setup_plotly_theme(theme)
+
+    with st.container(key="kyd-theme-switch"):
+        next_theme = "light" if theme == "dark" else "dark"
+        if st.button(
+            "☀️ Light mode" if theme == "dark" else "🌙 Dark mode",
+            key="kyd_theme_toggle",
+            help=f"Switch to {next_theme} theme",
+        ):
+            st.session_state["kyd_theme"] = next_theme
+            st.rerun()
 
     with st.sidebar:
         st.markdown(
