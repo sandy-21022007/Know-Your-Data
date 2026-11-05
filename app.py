@@ -27,6 +27,16 @@ def clean_html(html_str: str) -> str:
     return "".join(lines)
 
 
+BRAND_MARK_SVG = (
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    '<ellipse cx="12" cy="5" rx="8" ry="3"></ellipse>'
+    '<path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path>'
+    '<path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"></path>'
+    '</svg>'
+)
+
+
 def main():
     if "kyd_theme" not in st.session_state:
         st.session_state["kyd_theme"] = "dark"
@@ -35,23 +45,13 @@ def main():
     inject_custom_css(theme)
     setup_plotly_theme(theme)
 
-    with st.container(key="kyd-theme-switch"):
-        next_theme = "light" if theme == "dark" else "dark"
-        if st.button(
-            "☀️ Light mode" if theme == "dark" else "🌙 Dark mode",
-            key="kyd_theme_toggle",
-            help=f"Switch to {next_theme} theme",
-        ):
-            st.session_state["kyd_theme"] = next_theme
-            st.rerun()
-
     with st.sidebar:
         st.markdown(
-            clean_html("""
+            clean_html(f"""
             <div class="sidebar-header">
-                <div class="sidebar-logo">⚡</div>
+                <div class="sidebar-logo">{BRAND_MARK_SVG}</div>
                 <div class="sidebar-title">Know Your Data</div>
-                <div class="sidebar-subtitle">// NEURAL EDA COCKPIT</div>
+                <div class="sidebar-subtitle">ANALYTICS WORKSPACE</div>
                 <div class="sidebar-hud-status">
                     <span style="color:#22C55E; font-size:9px;">●</span> SYSTEM OPERATIONAL
                 </div>
@@ -130,6 +130,61 @@ def main():
             if st.button("⚡ Flush Stream Buffer", use_container_width=True):
                 for k in ["df", "file_name", "file_info", "excel_sheets", "raw_file_bytes", "current_sheet", "report_html", "simulating_analysis"]:
                     st.session_state.pop(k, None)
+                st.rerun()
+
+    # ---------- APPLICATION HEADER ----------
+    header_df = st.session_state.get("df")
+    with st.container(key="kyd-app-header"):
+        h_brand, h_context, h_status, h_theme = st.columns(
+            [3.0, 2.4, 2.4, 1.4], vertical_alignment="center"
+        )
+
+        with h_brand:
+            st.markdown(
+                clean_html(f"""
+                <div class="kyd-brand">
+                    <span class="kyd-brand-mark">{BRAND_MARK_SVG}</span>
+                    <span class="kyd-brand-text">
+                        <span class="kyd-brand-title">Know Your Data</span>
+                        <span class="kyd-brand-sub">Analytics Workspace</span>
+                    </span>
+                </div>
+                """),
+                unsafe_allow_html=True,
+            )
+
+        with h_context:
+            st.markdown(
+                clean_html(f"""
+                <div class="kyd-crumb">
+                    <span class="kyd-crumb-root">Workspace</span>
+                    <span class="kyd-crumb-sep">/</span>
+                    <span class="kyd-crumb-title">{selected}</span>
+                </div>
+                """),
+                unsafe_allow_html=True,
+            )
+
+        with h_status:
+            if header_df is not None:
+                st.markdown(
+                    badge_html("DATASET", st.session_state.get("file_name", "Dataset"), "primary"),
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    '<span class="kyd-status"><span class="kyd-status-dot"></span>No dataset loaded</span>',
+                    unsafe_allow_html=True,
+                )
+
+        with h_theme:
+            next_theme = "light" if theme == "dark" else "dark"
+            if st.button(
+                "☀ Light" if theme == "dark" else "☾ Dark",
+                key="kyd_theme_toggle",
+                help=f"Switch to {next_theme} theme",
+            ):
+                st.session_state["kyd_theme"] = next_theme
                 st.rerun()
 
     no_data_html = clean_html("""

@@ -49,7 +49,7 @@ DARK_PALETTE = """
 
         /* Typography */
         --text-primary: #F1F5F9;
-        --text-secondary: #A1AEC0;
+        --text-secondary: #94A3B8;
         --text-muted: #718096;
         --text-disabled: #64748B;
 
@@ -72,9 +72,9 @@ DARK_PALETTE = """
         --crimson-error: #EF4444;
 
         /* Borders */
-        --border: #283448;
-        --border-glass: #283448;
-        --border-subtle: rgba(40, 52, 72, 0.65);
+        --border: #263244;
+        --border-glass: #263244;
+        --border-subtle: rgba(38, 50, 68, 0.70);
         --border-luminous: rgba(99, 102, 241, 0.45);
 
         /* Accent tints */
@@ -93,26 +93,26 @@ DARK_PALETTE = """
         --focus-ring: 0 0 0 2px rgba(99, 102, 241, 0.35);
 
         /* Type */
-        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Emoji', sans-serif;
         --font-mono: 'JetBrains Mono', 'SFMono-Regular', 'Fira Code', monospace;
 
-        --radius-xl: 12px;
-        --radius-lg: 10px;
-        --radius-md: 8px;
-        --radius-sm: 6px;
+        --radius-xl: 10px;
+        --radius-lg: 8px;
+        --radius-md: 6px;
+        --radius-sm: 4px;
     }
 """
 
 LIGHT_PALETTE = """
     :root {
         /* Surfaces */
-        --bg-void: #F4F6FA;
-        --bg-darker: #F4F6FA;
+        --bg-void: #F5F7FA;
+        --bg-darker: #F5F7FA;
         --bg-sidebar: #FFFFFF;
         --bg-secondary: #F8FAFC;
         --bg-surface: #FFFFFF;
         --bg-surface-card: #FFFFFF;
-        --bg-surface-elevated: #F8FAFC;
+        --bg-surface-elevated: #FFFFFF;
         --bg-glass-heavy: rgba(255, 255, 255, 0.95);
         --bg-input: #FFFFFF;
         --bg-hover: rgba(79, 70, 229, 0.07);
@@ -146,7 +146,7 @@ LIGHT_PALETTE = """
         /* Borders */
         --border: #E2E8F0;
         --border-glass: #E2E8F0;
-        --border-subtle: #E8EDF5;
+        --border-subtle: #EDF1F7;
         --border-luminous: rgba(79, 70, 229, 0.35);
 
         /* Accent tints */
@@ -165,13 +165,13 @@ LIGHT_PALETTE = """
         --focus-ring: 0 0 0 2px rgba(79, 70, 229, 0.25);
 
         /* Type */
-        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Emoji', sans-serif;
         --font-mono: 'JetBrains Mono', 'SFMono-Regular', 'Fira Code', monospace;
 
-        --radius-xl: 12px;
-        --radius-lg: 10px;
-        --radius-md: 8px;
-        --radius-sm: 6px;
+        --radius-xl: 10px;
+        --radius-lg: 8px;
+        --radius-md: 6px;
+        --radius-sm: 4px;
     }
 """
 
@@ -180,7 +180,7 @@ LIGHT_PALETTE = """
 
 BASE_CSS = """
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Emoji:wght@300..700&display=swap');
 
     /* ==================== TOKENS ==================== */
 __PALETTE__
@@ -354,8 +354,9 @@ __PALETTE__
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.875rem;
+        font-size: 0.9rem;
         line-height: 1;
+        color: var(--text-secondary);
     }
     .metric-card .metric-delta-tag {
         font-family: var(--font-mono);
@@ -670,7 +671,7 @@ __PALETTE__
         line-height: 1;
         margin-bottom: 10px;
         display: inline-block;
-        opacity: 0.9;
+        color: var(--text-secondary);
     }
     .feature-card .feature-title {
         font-size: 0.875rem;
@@ -1080,15 +1081,16 @@ __PALETTE__
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 28px;
-        height: 28px;
-        border-radius: var(--radius-sm);
+        width: 30px;
+        height: 30px;
+        border-radius: var(--radius-md);
         background: var(--accent-soft);
         border: 1px solid var(--border-luminous);
-        font-size: 0.875rem;
+        color: var(--secondary);
         line-height: 1;
         margin-bottom: 10px;
     }
+    .sidebar-logo svg { width: 15px; height: 15px; }
     .sidebar-title {
         font-size: 0.9375rem;
         font-weight: 600;
@@ -1187,32 +1189,101 @@ __PALETTE__
     }
     ::-webkit-scrollbar-thumb:hover { background: var(--text-disabled); }
 
-    /* ==================== THEME SWITCH (TOP RIGHT) ==================== */
-    div[class*="st-key-kyd-theme-switch"] {
-        position: fixed;
-        top: 0.85rem;
-        right: 1rem;
-        width: auto !important;
-        z-index: 1000000;
+    /* ==================== APPLICATION HEADER ==================== */
+    div[class*="st-key-kyd-app-header"] {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg-void);
+        border-bottom: 1px solid var(--border);
+        padding: 0.55rem 0 0.65rem;
+        margin-bottom: 1.1rem;
     }
-    div[class*="st-key-kyd-theme-switch"] .stButton > button {
+    .kyd-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+    .kyd-brand-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        flex: 0 0 auto;
+        border-radius: var(--radius-md);
+        background: var(--accent-soft);
+        border: 1px solid var(--border-luminous);
+        color: var(--secondary);
+    }
+    .kyd-brand-mark svg { width: 15px; height: 15px; }
+    .kyd-brand-text { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+    .kyd-brand-title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--text-primary);
+    }
+    .kyd-brand-sub { font-size: 0.6875rem; color: var(--text-muted); }
+
+    .kyd-crumb { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+    .kyd-crumb-root {
+        font-size: 0.6875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+    }
+    .kyd-crumb-sep { color: var(--text-disabled); }
+    .kyd-crumb-title {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .kyd-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+    }
+    .kyd-status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--text-disabled);
+    }
+    div[class*="st-key-kyd-app-header"] .badge {
+        margin: 0;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    div[class*="st-key-kyd-app-header"] [data-testid="stColumn"]:last-child .stButton {
+        display: flex;
+        justify-content: flex-end;
+    }
+    div[class*="st-key-kyd-app-header"] .stButton > button {
         background: var(--bg-surface) !important;
         border: 1px solid var(--border) !important;
         color: var(--text-secondary) !important;
         font-size: 0.75rem !important;
         font-weight: 500 !important;
         letter-spacing: 0.01em !important;
-        padding: 0.35rem 0.8rem !important;
-        border-radius: 999px !important;
-        box-shadow: var(--shadow-card) !important;
-        transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease !important;
+        padding: 0.35rem 0.7rem !important;
+        border-radius: var(--radius-md) !important;
+        white-space: nowrap !important;
     }
-    div[class*="st-key-kyd-theme-switch"] .stButton > button:hover {
-        background: var(--bg-surface-elevated) !important;
+    div[class*="st-key-kyd-app-header"] .stButton > button:hover {
+        background: var(--accent-soft) !important;
         border-color: var(--border-luminous) !important;
         color: var(--text-primary) !important;
     }
-    div[class*="st-key-kyd-theme-switch"] .stButton > button:focus {
+    div[class*="st-key-kyd-app-header"] .stButton > button:focus {
         box-shadow: var(--focus-ring) !important;
     }
 
@@ -1245,6 +1316,20 @@ __PALETTE__
     }
 
     /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 900px) {
+        div[class*="st-key-kyd-app-header"] {
+            position: static;
+            padding-top: 0.25rem;
+        }
+        .kyd-crumb-root,
+        .kyd-crumb-sep {
+            display: none;
+        }
+        div[class*="st-key-kyd-app-header"] [data-testid="stColumn"]:last-child .stButton {
+            justify-content: flex-start;
+        }
+    }
+
     @media (max-width: 768px) {
         .hero-title { font-size: 1.75rem; }
         .hero-subtitle { font-size: 0.875rem; }
