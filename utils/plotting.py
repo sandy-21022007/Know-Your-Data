@@ -53,49 +53,49 @@ CHART_CONFIG = {
 
 DEFAULT_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
-    plot_bgcolor="rgba(17,24,39,0.35)",
+    plot_bgcolor="rgba(255,255,255,0.9)",
     font=dict(
         family="Inter, -apple-system, BlinkMacSystemFont, sans-serif",
-        color="#F1F5F9",
+        color="#17243A",
         size=12,
     ),
     title_font=dict(
         family="Inter, -apple-system, sans-serif",
         size=16,
-        color="#6366F1",
+        color="#4F46E5",
     ),
     xaxis=dict(
-        gridcolor="rgba(99,102,241,0.07)",
-        zerolinecolor="rgba(99,102,241,0.15)",
+        gridcolor="rgba(79,70,229,0.08)",
+        zerolinecolor="rgba(79,70,229,0.15)",
         tickfont=dict(
-            color="#94A3B8",
+            color="#64748B",
             family="JetBrains Mono, monospace",
             size=11,
         ),
-        title_font=dict(color="#CBD5E1", size=12),
+        title_font=dict(color="#374151", size=12),
     ),
     yaxis=dict(
-        gridcolor="rgba(99,102,241,0.07)",
-        zerolinecolor="rgba(99,102,241,0.15)",
+        gridcolor="rgba(79,70,229,0.08)",
+        zerolinecolor="rgba(79,70,229,0.15)",
         tickfont=dict(
-            color="#94A3B8",
+            color="#64748B",
             family="JetBrains Mono, monospace",
             size=11,
         ),
-        title_font=dict(color="#CBD5E1", size=12),
+        title_font=dict(color="#374151", size=12),
     ),
     legend=dict(
-        bgcolor="rgba(17,24,39,0.7)",
-        bordercolor="rgba(99,102,241,0.2)",
+        bgcolor="rgba(255,255,255,0.95)",
+        bordercolor="rgba(79,70,229,0.2)",
         borderwidth=1,
-        font=dict(color="#CBD5E1", size=11),
+        font=dict(color="#374151", size=11),
     ),
     margin=dict(l=50, r=30, t=50, b=40),
     hoverlabel=dict(
-        bgcolor="#0B1120",
-        bordercolor="#6366F1",
+        bgcolor="#FFFFFF",
+        bordercolor="#4F46E5",
         font=dict(
-            color="#F1F5F9",
+            color="#17243A",
             family="JetBrains Mono, monospace",
             size=12,
         ),
@@ -142,26 +142,26 @@ def get_colorscale(name: str = "primary") -> list:
     """
     scales = {
         "primary": [
-            [0, "#0B1120"], [0.25, "#111827"],
-            [0.5, "#6366F1"], [0.75, "#06B6D4"], [1, "#8B5CF6"],
+            [0, "#F5F7FB"], [0.25, "#E8EAF6"],
+            [0.5, "#4F46E5"], [0.75, "#0891B2"], [1, "#8B5CF6"],
         ],
         "diverging": [
             [0, "#EF4444"], [0.25, "#F59E0B"],
-            [0.5, "#0B1120"],
-            [0.75, "#6366F1"], [1, "#06B6D4"],
+            [0.5, "#F5F7FB"],
+            [0.75, "#4F46E5"], [1, "#0891B2"],
         ],
         "sequential": [
-            [0, "#0B1120"], [0.33, "#1C293B"],
-            [0.66, "#6366F1"], [1, "#06B6D4"],
+            [0, "#F5F7FB"], [0.33, "#E8EAF6"],
+            [0.66, "#4F46E5"], [1, "#0891B2"],
         ],
         "correlation": [
-            [0, "#EF4444"], [0.5, "#0B1120"], [1, "#6366F1"],
+            [0, "#EF4444"], [0.5, "#F5F7FB"], [1, "#4F46E5"],
         ],
         "nulls": [
-            [0, "#0B1120"], [1, "#EF4444"],
+            [0, "#F5F7FB"], [1, "#EF4444"],
         ],
         "heatmap": [
-            [0, "#0B1120"], [0.25, "#151F30"], [0.5, "#6366F1"],
+            [0, "#F5F7FB"], [0.25, "#FFFFFF"], [0.5, "#4F46E5"],
             [0.75, "#8B5CF6"], [1, "#EC4899"],
         ],
     }

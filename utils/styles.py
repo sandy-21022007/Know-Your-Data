@@ -19,58 +19,58 @@ CUSTOM_CSS = """
 
     /* ==================== ROOT VARIABLES ==================== */
     :root {
-        /* Enterprise Dark Palette */
-        --bg-void: #0B1120;
-        --bg-darker: #0B1120;
-        --bg-surface: rgba(17, 24, 39, 0.72);
-        --bg-surface-elevated: rgba(28, 41, 59, 0.82);
-        --bg-surface-card: rgba(21, 31, 48, 0.7);
-        --bg-glass-heavy: rgba(11, 17, 32, 0.88);
+        /* Enterprise Light Palette */
+        --bg-void: #F5F7FB;
+        --bg-darker: #F5F7FB;
+        --bg-surface: rgba(255, 255, 255, 0.9);
+        --bg-surface-elevated: rgba(248, 250, 252, 0.95);
+        --bg-surface-card: rgba(255, 255, 255, 0.95);
+        --bg-glass-heavy: rgba(245, 247, 251, 0.95);
 
         /* Professional Accents */
-        --cyber-cyan: #6366F1;
-        --electric-indigo: #06B6D4;
+        --cyber-cyan: #4F46E5;
+        --electric-indigo: #0891B2;
         --neon-violet: #8B5CF6;
-        --emerald-success: #22C55E;
-        --amber-warning: #F59E0B;
-        --crimson-error: #EF4444;
+        --emerald-success: #16A34A;
+        --amber-warning: #D97706;
+        --crimson-error: #DC2626;
 
         /* Backward-compatible aliases */
-        --primary: #6366F1;
-        --primary-dark: #4F46E5;
-        --secondary: #06B6D4;
+        --primary: #4F46E5;
+        --primary-dark: #4338CA;
+        --secondary: #0891B2;
         --accent: #8B5CF6;
-        --success: #22C55E;
-        --warning: #F59E0B;
-        --error: #EF4444;
+        --success: #16A34A;
+        --warning: #D97706;
+        --error: #DC2626;
 
         /* Gradients */
-        --gradient-cyber: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%);
-        --gradient-neural: linear-gradient(135deg, #6366F1 0%, #06B6D4 50%, #8B5CF6 100%);
-        --gradient-emerald: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
-        --gradient-amber: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-        --gradient-glass-border: linear-gradient(135deg, rgba(99, 102, 241, 0.45), rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.25));
+        --gradient-cyber: linear-gradient(135deg, #4F46E5 0%, #0891B2 100%);
+        --gradient-neural: linear-gradient(135deg, #4F46E5 0%, #0891B2 50%, #8B5CF6 100%);
+        --gradient-emerald: linear-gradient(135deg, #16A34A 0%, #15803D 100%);
+        --gradient-amber: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+        --gradient-glass-border: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(8, 145, 178, 0.1), rgba(139, 92, 246, 0.15));
 
         /* Borders & Glass */
-        --border-glass: rgba(99, 102, 241, 0.14);
-        --border-luminous: rgba(99, 102, 241, 0.4);
-        --border-subtle: rgba(255, 255, 255, 0.08);
+        --border-glass: rgba(79, 70, 229, 0.1);
+        --border-luminous: rgba(79, 70, 229, 0.3);
+        --border-subtle: rgba(0, 0, 0, 0.06);
 
         /* Shadows & Glows */
-        --glow-cyan: 0 0 25px rgba(99, 102, 241, 0.35);
-        --glow-indigo: 0 0 25px rgba(6, 182, 212, 0.35);
-        --glow-neural: 0 0 35px rgba(99, 102, 241, 0.2), 0 0 70px rgba(6, 182, 212, 0.1);
-        --shadow-elevation: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.06);
+        --glow-cyan: 0 0 15px rgba(79, 70, 229, 0.15);
+        --glow-indigo: 0 0 15px rgba(8, 145, 178, 0.15);
+        --glow-neural: 0 0 20px rgba(79, 70, 229, 0.1), 0 0 40px rgba(8, 145, 178, 0.05);
+        --shadow-elevation: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04);
 
         /* Typography */
-        --text-primary: #F1F5F9;
-        --text-secondary: #94A3B8;
-        --text-muted: #64748B;
+        --text-primary: #17243A;
+        --text-secondary: #64748B;
+        --text-muted: #9CA3AF;
         --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-        --radius-xl: 16px;
-        --radius-lg: 12px;
+        --radius-xl: 12px;
+        --radius-lg: 10px;
         --radius-md: 8px;
         --radius-sm: 6px;
     }
@@ -83,11 +83,11 @@ CUSTOM_CSS = """
     }
 
     .stApp {
-        background-color: #0B1120 !important;
+        background-color: #F5F7FB !important;
         background-image: 
-            radial-gradient(circle at 50% -10%, rgba(99, 102, 241, 0.05) 0%, transparent 45%),
-            radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.04) 0%, transparent 40%),
-            radial-gradient(circle at 15% 70%, rgba(139, 92, 246, 0.03) 0%, transparent 40%);
+            radial-gradient(circle at 50% -10%, rgba(79, 70, 229, 0.03) 0%, transparent 45%),
+            radial-gradient(circle at 85% 30%, rgba(8, 145, 178, 0.02) 0%, transparent 40%),
+            radial-gradient(circle at 15% 70%, rgba(139, 92, 246, 0.02) 0%, transparent 40%);
         background-size: 100% 100%, 100% 100%, 100% 100%;
         background-attachment: fixed;
     }
@@ -202,7 +202,7 @@ CUSTOM_CSS = """
         width: 380px;
         height: 380px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(79, 70, 229, 0.04) 0%, transparent 70%);
         filter: blur(80px);
         pointer-events: none;
         z-index: 0;
@@ -215,7 +215,7 @@ CUSTOM_CSS = """
         width: 440px;
         height: 440px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(8, 145, 178, 0.03) 0%, transparent 70%);
         filter: blur(100px);
         pointer-events: none;
         z-index: 0;
@@ -889,9 +889,9 @@ CUSTOM_CSS = """
 
     /* ==================== SIDEBAR ==================== */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0B1120 0%, #111827 50%, #0B1120 100%) !important;
-        border-right: 1px solid var(--border-glass) !important;
-        box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #FFFFFF 100%) !important;
+        border-right: 1px solid #E5E7EB !important;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.06);
     }
     section[data-testid="stSidebar"] .block-container {
         padding-top: 1.2rem;
@@ -929,8 +929,8 @@ CUSTOM_CSS = """
         gap: 6px;
         font-family: var(--font-mono);
         font-size: 0.65rem;
-        background: rgba(99, 102, 241, 0.08);
-        border: 1px solid rgba(99, 102, 241, 0.2);
+        background: rgba(79, 70, 229, 0.08);
+        border: 1px solid rgba(79, 70, 229, 0.2);
         color: var(--cyber-cyan);
         padding: 3px 10px;
         border-radius: 12px;
@@ -953,13 +953,13 @@ CUSTOM_CSS = """
 
     /* ==================== SCROLLBARS ==================== */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0B1120; }
+    ::-webkit-scrollbar-track { background: #F5F7FB; }
     ::-webkit-scrollbar-thumb {
-        background: rgba(99, 102, 241, 0.25);
+        background: rgba(79, 70, 229, 0.2);
         border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background: rgba(99, 102, 241, 0.4);
+        background: rgba(79, 70, 229, 0.35);
     }
 
     /* ==================== EXPANDER ==================== */

@@ -47,7 +47,7 @@ def main():
         )
 
         st.markdown(
-            "<hr style='margin-top: 14px; margin-bottom: 14px; border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(99,102,241,0.3), transparent);'>",
+            "<hr style='margin-top: 14px; margin-bottom: 14px; border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(79,70,229,0.2), transparent);'>",
             unsafe_allow_html=True,
         )
 
@@ -69,7 +69,7 @@ def main():
                 default_index=0,
                 styles={
                     "container": {"padding": "4px", "background-color": "transparent"},
-                    "icon": {"color": "#6366F1", "font-size": "15px"},
+                    "icon": {"color": "#4F46E5", "font-size": "15px"},
                     "nav-link": {
                         "font-size": "13.5px",
                         "font-family": "Inter, sans-serif",
@@ -77,15 +77,15 @@ def main():
                         "margin": "3px 0",
                         "padding": "9px 12px",
                         "border-radius": "8px",
-                        "color": "#94A3B8",
+                        "color": "#64748B",
                         "transition": "all 0.2s ease",
                         "border": "1px solid transparent",
                     },
                     "nav-link-selected": {
-                        "background": "rgba(99, 102, 241, 0.15)",
-                        "color": "#6366F1",
+                        "background": "rgba(79, 70, 229, 0.1)",
+                        "color": "#4F46E5",
                         "font-weight": "600",
-                        "border": "1px solid rgba(99, 102, 241, 0.3)",
+                        "border": "1px solid rgba(79, 70, 229, 0.2)",
                     },
                 },
             )
@@ -96,11 +96,11 @@ def main():
             df = st.session_state["df"]
 
             st.markdown(
-                "<hr style='margin-top: 18px; margin-bottom: 14px; border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(99,102,241,0.3), transparent);'>",
+                "<hr style='margin-top: 18px; margin-bottom: 14px; border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(79,70,229,0.2), transparent);'>",
                 unsafe_allow_html=True,
             )
             st.markdown(
-                "<div style='font-family: var(--font-mono); font-size: 0.75rem; color: #6366F1; letter-spacing: 0.1em; margin-bottom: 8px;'>// ACTIVE DATASET STREAM</div>",
+                "<div style='font-family: var(--font-mono); font-size: 0.75rem; color: #4F46E5; letter-spacing: 0.1em; margin-bottom: 8px;'>// ACTIVE DATASET STREAM</div>",
                 unsafe_allow_html=True,
             )
 
