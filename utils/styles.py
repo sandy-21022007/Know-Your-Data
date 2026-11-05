@@ -979,7 +979,27 @@ CUSTOM_CSS = """
     /* ==================== HIDE STREAMLIT BRANDING ==================== */
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
-    header { visibility: hidden; }
+    /* Keep header visible for sidebar toggle, but hide title */
+    header [data-testid="stHeader"] > div {
+        visibility: hidden;
+    }
+    /* Make the hamburger menu button visible */
+    button[kind="header"] {
+        visibility: visible !important;
+        background: rgba(79, 70, 229, 0.1) !important;
+        border: 1px solid rgba(79, 70, 229, 0.2) !important;
+        color: #4F46E5 !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease !important;
+    }
+    button[kind="header"]:hover {
+        background: rgba(79, 70, 229, 0.15) !important;
+        border-color: rgba(79, 70, 229, 0.3) !important;
+        transform: translateY(-1px) !important;
+    }
 
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 768px) {
