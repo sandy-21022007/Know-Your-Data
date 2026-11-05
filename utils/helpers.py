@@ -139,7 +139,7 @@ def metric_card_html(icon: str, value: str, label: str, stagger: int = 1, delta:
 
 
 def progress_bar_html(percentage: float, color: str = None) -> str:
-    """Return HTML for an animated cyber progress bar with light shimmer."""
+    """Return HTML for an animated professional progress bar with light shimmer."""
     _color_map = {
         "error": "var(--crimson-error)",
         "warning": "var(--amber-warning)",
@@ -169,7 +169,7 @@ def progress_bar_html(percentage: float, color: str = None) -> str:
 
 
 def badge_html(text: str, value: str = None, badge_type: str = "info") -> str:
-    """Return HTML for a styled cyber badge. Optionally show 'text: value' format."""
+    """Return HTML for a styled professional badge. Optionally show 'text: value' format."""
     if value is not None:
         return f'<span class="badge badge-{badge_type}">{text}: {value}</span>'
     return f'<span class="badge badge-{badge_type}">{text}</span>'
@@ -248,7 +248,7 @@ def neural_core_html(progress_pct: int = 85, phase_title: str = "NEURAL ANALYSIS
 
 
 def terminal_log_box_html(logs: list = None) -> str:
-    """Return HTML for the hacker/analyst real-time terminal telemetry log box."""
+    """Return HTML for the analyst real-time terminal telemetry log box."""
     if logs is None:
         logs = [
             ("10:42:01.012", "INIT", "Neural EDA Core initialized on runtime thread"),
@@ -278,7 +278,7 @@ def terminal_log_box_html(logs: list = None) -> str:
                 <div class="terminal-dot green"></div>
             </div>
             <div class="terminal-title">KYD-OS // TELEMETRY TERMINAL &bull; ACTIVE</div>
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #10B981;">ONLINE &bull; 60 FPS</div>
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #22C55E;">ONLINE &bull; 60 FPS</div>
         </div>
         <div class="terminal-body">
             {lines_html}

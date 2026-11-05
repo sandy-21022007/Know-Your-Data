@@ -39,7 +39,7 @@ def main():
                 <div class="sidebar-title">Know Your Data</div>
                 <div class="sidebar-subtitle">// NEURAL EDA COCKPIT</div>
                 <div class="sidebar-hud-status">
-                    <span style="color:#10B981; font-size:9px;">●</span> SYSTEM OPERATIONAL
+                    <span style="color:#22C55E; font-size:9px;">●</span> SYSTEM OPERATIONAL
                 </div>
             </div>
             """),
@@ -47,7 +47,7 @@ def main():
         )
 
         st.markdown(
-            "<hr style='margin-top: 14px; margin-bottom: 14px; border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(0,242,254,0.3), transparent);'>",
+            "<hr style='margin-top: 14px; margin-bottom: 14px; border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(99,102,241,0.3), transparent);'>",
             unsafe_allow_html=True,
         )
 
@@ -69,24 +69,23 @@ def main():
                 default_index=0,
                 styles={
                     "container": {"padding": "4px", "background-color": "transparent"},
-                    "icon": {"color": "#00F2FE", "font-size": "15px"},
+                    "icon": {"color": "#6366F1", "font-size": "15px"},
                     "nav-link": {
                         "font-size": "13.5px",
                         "font-family": "Inter, sans-serif",
                         "text-align": "left",
                         "margin": "3px 0",
                         "padding": "9px 12px",
-                        "border-radius": "10px",
+                        "border-radius": "8px",
                         "color": "#94A3B8",
-                        "transition": "all 0.25s ease",
+                        "transition": "all 0.2s ease",
                         "border": "1px solid transparent",
                     },
                     "nav-link-selected": {
-                        "background": "linear-gradient(135deg, rgba(0, 242, 254, 0.18), rgba(79, 172, 254, 0.25))",
-                        "color": "#00F2FE",
-                        "font-weight": "700",
-                        "border": "1px solid rgba(0, 242, 254, 0.4)",
-                        "box-shadow": "0 0 15px rgba(0, 242, 254, 0.2)",
+                        "background": "rgba(99, 102, 241, 0.15)",
+                        "color": "#6366F1",
+                        "font-weight": "600",
+                        "border": "1px solid rgba(99, 102, 241, 0.3)",
                     },
                 },
             )
@@ -97,11 +96,11 @@ def main():
             df = st.session_state["df"]
 
             st.markdown(
-                "<hr style='margin-top: 18px; margin-bottom: 14px; border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(0,242,254,0.3), transparent);'>",
+                "<hr style='margin-top: 18px; margin-bottom: 14px; border: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(99,102,241,0.3), transparent);'>",
                 unsafe_allow_html=True,
             )
             st.markdown(
-                "<div style='font-family: var(--font-mono); font-size: 0.75rem; color: #00F2FE; letter-spacing: 0.1em; margin-bottom: 8px;'>// ACTIVE DATASET STREAM</div>",
+                "<div style='font-family: var(--font-mono); font-size: 0.75rem; color: #6366F1; letter-spacing: 0.1em; margin-bottom: 8px;'>// ACTIVE DATASET STREAM</div>",
                 unsafe_allow_html=True,
             )
 
@@ -121,8 +120,8 @@ def main():
 
     no_data_html = clean_html("""
     <div style="text-align: center; padding: 90px 20px; animation: fadeInUp 0.6s ease-out;">
-        <div style="font-size: 4rem; margin-bottom: 16px; filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.5));">⚡</div>
-        <div class="gradient-text" style="font-size: 1.8rem; margin-bottom: 8px;">No Dataset Stream Detected</div>
+        <div style="font-size: 3rem; margin-bottom: 16px; color: #6366F1;">⚡</div>
+        <div style="font-size: 1.5rem; margin-bottom: 8px; color: #F1F5F9; font-weight: 600;">No Dataset Stream Detected</div>
         <div style="color: #94A3B8; font-size: 0.95rem; max-width: 500px; margin: 0 auto 24px;">
             The Neural EDA engine requires a dataset stream to compute telemetry.
             Please visit the Ingestion cockpit to upload a file or launch the demo dataset.
