@@ -46,9 +46,11 @@ def main():
     setup_plotly_theme(theme)
 
 
-    # Force menu re-render on theme change
+    # Force menu re-render on theme change while preserving selection
     if "menu_key" not in st.session_state:
         st.session_state["menu_key"] = 0
+    if "selected_menu_index" not in st.session_state:
+        st.session_state["selected_menu_index"] = 0
     if st.session_state.get("prev_theme") != theme:
         st.session_state["menu_key"] += 1
         st.session_state["prev_theme"] = theme
@@ -148,10 +150,13 @@ def main():
                     "bar-chart-line", "graph-up", "link-45deg", "arrows-angle-expand",
                     "files", "lightning", "lightbulb", "fonts", "download"
                 ],
-                default_index=0,
+                default_index=st.session_state["selected_menu_index"],
                 key=f"menu_{st.session_state['menu_key']}",
                 styles=_menu_styles,
             )
+            # Track the current selection so theme toggles don't reset it
+            if selected in menu_options:
+                st.session_state["selected_menu_index"] = menu_options.index(selected)
         else:
             selected = st.radio("Navigation", menu_options)
 
@@ -238,9 +243,9 @@ def main():
 
     no_data_html = clean_html("""
     <div style="text-align: center; padding: 90px 20px; animation: fadeInUp 0.6s ease-out;">
-        <div style="font-size: 3rem; margin-bottom: 16px; color: #6366F1;">⚡</div>
-        <div style="font-size: 1.5rem; margin-bottom: 8px; color: #F1F5F9; font-weight: 600;">No Dataset Stream Detected</div>
-        <div style="color: #94A3B8; font-size: 0.95rem; max-width: 500px; margin: 0 auto 24px;">
+        <div style="font-size: 3rem; margin-bottom: 16px; color: var(--primary);">⚡</div>
+        <div style="font-size: 1.5rem; margin-bottom: 8px; color: var(--text-primary); font-weight: 600;">No Dataset Stream Detected</div>
+        <div style="color: var(--text-secondary); font-size: 0.95rem; max-width: 500px; margin: 0 auto 24px;">
             The Neural EDA engine requires a dataset stream to compute telemetry.
             Please visit the Ingestion cockpit to upload a file or launch the demo dataset.
         </div>

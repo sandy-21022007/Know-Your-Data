@@ -1073,10 +1073,23 @@ __PALETTE__
     /* ==================== SIDEBAR ==================== */
     section[data-testid="stSidebar"] {
         background: var(--bg-sidebar) !important;
+        background-color: var(--bg-sidebar) !important;
         border-right: 1px solid var(--border) !important;
     }
     section[data-testid="stSidebar"] > div {
         background: var(--bg-sidebar) !important;
+        background-color: var(--bg-sidebar) !important;
+    }
+    section[data-testid="stSidebar"] > div > div {
+        background: var(--bg-sidebar) !important;
+        background-color: var(--bg-sidebar) !important;
+    }
+    section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+        background: var(--bg-sidebar) !important;
+        background-color: var(--bg-sidebar) !important;
+    }
+    section[data-testid="stSidebar"] * {
+        color: var(--text-secondary);
     }
     section[data-testid="stSidebar"] .block-container {
         padding-top: 1rem;
@@ -1084,6 +1097,10 @@ __PALETTE__
     }
     section[data-testid="stSidebar"] hr {
         border-top: 1px solid var(--border);
+    }
+    /* Override Streamlit's built-in sidebar button text color */
+    section[data-testid="stSidebar"] .stButton > button {
+        color: var(--text-primary) !important;
     }
 
     .sidebar-header {
