@@ -45,6 +45,7 @@ def main():
     inject_custom_css(theme)
     setup_plotly_theme(theme)
 
+
     # Force menu re-render on theme change
     if "menu_key" not in st.session_state:
         st.session_state["menu_key"] = 0
@@ -79,6 +80,66 @@ def main():
         ]
 
         if option_menu:
+            # Build theme-aware styles for the option menu
+            if theme == "light":
+                _menu_styles = {
+                    "container": {
+                        "padding": "4px",
+                        "background-color": "transparent",
+                    },
+                    "nav-link": {
+                        "font-size": "13.5px",
+                        "font-family": "Inter, sans-serif",
+                        "text-align": "left",
+                        "margin": "3px 0",
+                        "padding": "9px 12px",
+                        "border-radius": "6px",
+                        "color": "#64748B",
+                        "background-color": "transparent",
+                        "border": "1px solid transparent",
+                        "--hover-color": "#EEF2FF",
+                    },
+                    "nav-link-selected": {
+                        "background-color": "rgba(79, 70, 229, 0.12)",
+                        "color": "#17243A",
+                        "font-weight": "600",
+                        "border": "1px solid rgba(79, 70, 229, 0.35)",
+                    },
+                    "icon": {
+                        "color": "#0891B2",
+                        "font-size": "14px",
+                    },
+                }
+            else:
+                _menu_styles = {
+                    "container": {
+                        "padding": "4px",
+                        "background-color": "transparent",
+                    },
+                    "nav-link": {
+                        "font-size": "13.5px",
+                        "font-family": "Inter, sans-serif",
+                        "text-align": "left",
+                        "margin": "3px 0",
+                        "padding": "9px 12px",
+                        "border-radius": "6px",
+                        "color": "#94A3B8",
+                        "background-color": "transparent",
+                        "border": "1px solid transparent",
+                        "--hover-color": "rgba(99, 102, 241, 0.10)",
+                    },
+                    "nav-link-selected": {
+                        "background-color": "rgba(99, 102, 241, 0.18)",
+                        "color": "#F1F5F9",
+                        "font-weight": "600",
+                        "border": "1px solid rgba(99, 102, 241, 0.45)",
+                    },
+                    "icon": {
+                        "color": "#38BDF8",
+                        "font-size": "14px",
+                    },
+                }
+
             selected = option_menu(
                 menu_title=None,
                 options=menu_options,
@@ -89,31 +150,7 @@ def main():
                 ],
                 default_index=0,
                 key=f"menu_{st.session_state['menu_key']}",
-                styles={
-                    "container": {"padding": "4px", "background-color": "transparent"},
-                    "icon": {"color": "var(--secondary)", "font-size": "14px"},
-                    "nav-link": {
-                        "font-size": "13.5px",
-                        "font-family": "Inter, sans-serif",
-                        "text-align": "left",
-                        "margin": "3px 0",
-                        "padding": "9px 12px",
-                        "border-radius": "var(--radius-md)",
-                        "color": "var(--text-secondary)",
-                        "transition": "all 0.2s ease",
-                        "border": "1px solid transparent",
-                    },
-                    "nav-link-hover": {
-                        "background-color": "var(--bg-hover)",
-                        "color": "var(--text-primary)",
-                    },
-                    "nav-link-selected": {
-                        "background": "var(--accent-soft-strong)",
-                        "color": "var(--text-primary)",
-                        "font-weight": "600",
-                        "border": "1px solid var(--border-luminous)",
-                    },
-                },
+                styles=_menu_styles,
             )
         else:
             selected = st.radio("Navigation", menu_options)

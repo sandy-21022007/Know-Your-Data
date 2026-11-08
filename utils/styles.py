@@ -1157,25 +1157,40 @@ __PALETTE__
     }
 
     /* Force streamlit-option-menu to respect theme variables */
-    /* Remove inline styles to let CSS variables work */
+    /* Use higher specificity to override inline styles */
+    section[data-testid="stSidebar"] .nav-link,
     .nav-link {
+        font-size: 13.5px !important;
+        font-family: Inter, sans-serif !important;
+        text-align: left !important;
+        margin: 3px 0 !important;
+        padding: 9px 12px !important;
+        border-radius: var(--radius-md) !important;
         color: var(--text-secondary) !important;
+        transition: all 0.2s ease !important;
+        border: 1px solid transparent !important;
         background-color: transparent !important;
     }
+    section[data-testid="stSidebar"] .nav-link:hover,
     .nav-link:hover {
         color: var(--text-primary) !important;
         background-color: var(--bg-hover) !important;
     }
+    section[data-testid="stSidebar"] .nav-link.active,
     .nav-link.active {
         background: var(--accent-soft-strong) !important;
         color: var(--text-primary) !important;
+        font-weight: 600 !important;
         border: 1px solid var(--border-luminous) !important;
     }
+    section[data-testid="stSidebar"] .nav-link.active:hover,
     .nav-link.active:hover {
         background: var(--accent-soft-strong) !important;
     }
+    section[data-testid="stSidebar"] .nav-icon,
     .nav-icon {
         color: var(--secondary) !important;
+        font-size: 14px !important;
     }
     section[data-testid="stSidebar"] [role="radiogroup"] label {
         font-size: 0.8125rem !important;
@@ -1402,40 +1417,6 @@ __PALETTE__
         .dropzone-cyber { padding: 26px 16px; }
     }
 </style>
-<script>
-    // Force streamlit-option-menu to respect CSS theme variables
-    // Remove inline styles that prevent theme switching
-    function fixMenuTheme() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            // Remove inline color and background styles to let CSS variables work
-            link.style.removeProperty('color');
-            link.style.removeProperty('background');
-            link.style.removeProperty('background-color');
-        });
-
-        const icons = document.querySelectorAll('.nav-icon');
-        icons.forEach(icon => {
-            icon.style.removeProperty('color');
-        });
-    }
-
-    // Run on load and periodically to catch theme changes
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fixMenuTheme);
-    } else {
-        fixMenuTheme();
-    }
-
-    // Observer to catch DOM updates
-    const observer = new MutationObserver(() => {
-        fixMenuTheme();
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Also run periodically as fallback
-    setInterval(fixMenuTheme, 1000);
-</script>
 """
 
 # Backwards-compatible default export (dark palette).
