@@ -45,6 +45,13 @@ def main():
     inject_custom_css(theme)
     setup_plotly_theme(theme)
 
+    # Force menu re-render on theme change
+    if "menu_key" not in st.session_state:
+        st.session_state["menu_key"] = 0
+    if st.session_state.get("prev_theme") != theme:
+        st.session_state["menu_key"] += 1
+        st.session_state["prev_theme"] = theme
+
     with st.sidebar:
         st.markdown(
             clean_html(f"""
@@ -81,6 +88,7 @@ def main():
                     "files", "lightning", "lightbulb", "fonts", "download"
                 ],
                 default_index=0,
+                key=f"menu_{st.session_state['menu_key']}",
                 styles={
                     "container": {"padding": "4px", "background-color": "transparent"},
                     "icon": {"color": "var(--secondary)", "font-size": "14px"},

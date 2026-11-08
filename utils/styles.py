@@ -1157,21 +1157,22 @@ __PALETTE__
     }
 
     /* Force streamlit-option-menu to respect theme variables */
+    /* Remove inline styles to let CSS variables work */
     .nav-link {
         color: var(--text-secondary) !important;
+        background-color: transparent !important;
     }
     .nav-link:hover {
-        background-color: var(--bg-hover) !important;
         color: var(--text-primary) !important;
+        background-color: var(--bg-hover) !important;
     }
-    .nav-link-selected {
+    .nav-link.active {
         background: var(--accent-soft-strong) !important;
         color: var(--text-primary) !important;
         border: 1px solid var(--border-luminous) !important;
     }
-    .nav-link-selected:hover {
+    .nav-link.active:hover {
         background: var(--accent-soft-strong) !important;
-        color: var(--text-primary) !important;
     }
     .nav-icon {
         color: var(--secondary) !important;
@@ -1401,6 +1402,40 @@ __PALETTE__
         .dropzone-cyber { padding: 26px 16px; }
     }
 </style>
+<script>
+    // Force streamlit-option-menu to respect CSS theme variables
+    // Remove inline styles that prevent theme switching
+    function fixMenuTheme() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            // Remove inline color and background styles to let CSS variables work
+            link.style.removeProperty('color');
+            link.style.removeProperty('background');
+            link.style.removeProperty('background-color');
+        });
+
+        const icons = document.querySelectorAll('.nav-icon');
+        icons.forEach(icon => {
+            icon.style.removeProperty('color');
+        });
+    }
+
+    // Run on load and periodically to catch theme changes
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fixMenuTheme);
+    } else {
+        fixMenuTheme();
+    }
+
+    // Observer to catch DOM updates
+    const observer = new MutationObserver(() => {
+        fixMenuTheme();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Also run periodically as fallback
+    setInterval(fixMenuTheme, 1000);
+</script>
 """
 
 # Backwards-compatible default export (dark palette).
