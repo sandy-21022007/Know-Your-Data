@@ -1159,36 +1159,59 @@ __PALETTE__
     [data-testid="stSpinner"] p { color: var(--text-secondary) !important; font-size: 0.8125rem !important; }
 
     /* ==================== SIDEBAR ==================== */
-    section[data-testid="stSidebar"] {
+    section[data-testid="stSidebar"],
+    [data-testid="stSidebar"],
+    [data-testid="stSidebarContent"],
+    [data-testid="stSidebarUserContent"],
+    [data-testid="stSidebarHeader"],
+    .stSidebar {
         background: var(--bg-sidebar) !important;
         background-color: var(--bg-sidebar) !important;
         border-right: 1px solid var(--border) !important;
     }
-    section[data-testid="stSidebar"] > div {
+    section[data-testid="stSidebar"] > div,
+    [data-testid="stSidebar"] > div {
         background: var(--bg-sidebar) !important;
         background-color: var(--bg-sidebar) !important;
     }
-    section[data-testid="stSidebar"] > div > div {
+    section[data-testid="stSidebar"] > div > div,
+    [data-testid="stSidebar"] > div > div {
         background: var(--bg-sidebar) !important;
         background-color: var(--bg-sidebar) !important;
     }
-    section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+    section[data-testid="stSidebar"] iframe,
+    [data-testid="stSidebar"] iframe {
         background: var(--bg-sidebar) !important;
         background-color: var(--bg-sidebar) !important;
     }
     section[data-testid="stSidebar"] * {
         color: var(--text-secondary);
     }
-    section[data-testid="stSidebar"] .block-container {
+    section[data-testid="stSidebar"] .block-container,
+    [data-testid="stSidebar"] .block-container {
         padding-top: 1rem;
         padding-bottom: 2rem;
+        background: var(--bg-sidebar) !important;
+        background-color: var(--bg-sidebar) !important;
     }
-    section[data-testid="stSidebar"] hr {
-        border-top: 1px solid var(--border);
+    section[data-testid="stSidebar"] hr,
+    [data-testid="stSidebar"] hr {
+        border-top: 1px solid var(--border) !important;
     }
     /* Override Streamlit's built-in sidebar button text color */
-    section[data-testid="stSidebar"] .stButton > button {
+    section[data-testid="stSidebar"] .stButton > button,
+    [data-testid="stSidebar"] .stButton > button {
         color: var(--text-primary) !important;
+    }
+
+    /* Hide 0-height helper iframes */
+    iframe[height="0"],
+    iframe[height="0px"],
+    .element-container:has(iframe[height="0"]) {
+        display: none !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .sidebar-header {

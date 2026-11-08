@@ -87,7 +87,14 @@ def main():
                 _menu_styles = {
                     "container": {
                         "padding": "4px",
-                        "background-color": "transparent",
+                        "background-color": "#FFFFFF",
+                        "border-radius": "8px",
+                    },
+                    "nav": {
+                        "background-color": "#FFFFFF",
+                    },
+                    "nav-item": {
+                        "background-color": "#FFFFFF",
                     },
                     "nav-link": {
                         "font-size": "13.5px",
@@ -96,19 +103,19 @@ def main():
                         "margin": "3px 0",
                         "padding": "9px 12px",
                         "border-radius": "6px",
-                        "color": "#64748B",
-                        "background-color": "transparent",
+                        "color": "#475569",
+                        "background-color": "#FFFFFF",
                         "border": "1px solid transparent",
                         "--hover-color": "#EEF2FF",
                     },
                     "nav-link-selected": {
-                        "background-color": "rgba(79, 70, 229, 0.12)",
-                        "color": "#17243A",
+                        "background-color": "#EEF2FF",
+                        "color": "#4F46E5",
                         "font-weight": "600",
                         "border": "1px solid rgba(79, 70, 229, 0.35)",
                     },
                     "icon": {
-                        "color": "#0891B2",
+                        "color": "#4F46E5",
                         "font-size": "14px",
                     },
                 }
@@ -116,7 +123,14 @@ def main():
                 _menu_styles = {
                     "container": {
                         "padding": "4px",
-                        "background-color": "transparent",
+                        "background-color": "#0E1421",
+                        "border-radius": "8px",
+                    },
+                    "nav": {
+                        "background-color": "#0E1421",
+                    },
+                    "nav-item": {
+                        "background-color": "#0E1421",
                     },
                     "nav-link": {
                         "font-size": "13.5px",
@@ -126,7 +140,7 @@ def main():
                         "padding": "9px 12px",
                         "border-radius": "6px",
                         "color": "#94A3B8",
-                        "background-color": "transparent",
+                        "background-color": "#0E1421",
                         "border": "1px solid transparent",
                         "--hover-color": "rgba(99, 102, 241, 0.10)",
                     },
@@ -157,6 +171,47 @@ def main():
             # Track the current selection so theme toggles don't reset it
             if selected in menu_options:
                 st.session_state["selected_menu_index"] = menu_options.index(selected)
+
+            # Ensure iframe body in sidebar immediately updates to match theme
+            import streamlit.components.v1 as components
+            is_light_str = "true" if theme == "light" else "false"
+            components.html(
+                f"""
+                <script>
+                (function() {{
+                    const isLight = {is_light_str};
+                    const bg = isLight ? '#FFFFFF' : '#0E1421';
+                    const text = isLight ? '#17243A' : '#F1F5F9';
+                    const parentDoc = window.parent.document;
+                    function syncTheme() {{
+                        const iframes = parentDoc.querySelectorAll('iframe');
+                        iframes.forEach(iframe => {{
+                            try {{
+                                const idoc = iframe.contentDocument || iframe.contentWindow.document;
+                                if (idoc && idoc.body) {{
+                                    idoc.documentElement.style.setProperty('background-color', bg, 'important');
+                                    idoc.documentElement.style.setProperty('--background-color', bg, 'important');
+                                    idoc.documentElement.style.setProperty('--secondary-background-color', bg, 'important');
+                                    idoc.body.style.setProperty('background-color', bg, 'important');
+                                    idoc.body.style.setProperty('color', text, 'important');
+                                    const c = idoc.querySelector('.container-xxl');
+                                    if (c) c.style.setProperty('background-color', bg, 'important');
+                                    const m = idoc.querySelector('.menu');
+                                    if (m) m.style.setProperty('background-color', bg, 'important');
+                                }}
+                            }} catch(e) {{}}
+                        }});
+                    }}
+                    syncTheme();
+                    setTimeout(syncTheme, 50);
+                    setTimeout(syncTheme, 200);
+                    setTimeout(syncTheme, 600);
+                }})();
+                </script>
+                """,
+                height=0,
+                width=0,
+            )
         else:
             selected = st.radio("Navigation", menu_options)
 
