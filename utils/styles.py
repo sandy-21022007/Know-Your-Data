@@ -33,6 +33,13 @@ def inject_custom_css(theme: str = None):
 
 DARK_PALETTE = """
     :root {
+        /* ---- Streamlit built-in variable overrides ---- */
+        --primary-color: #6366F1;
+        --background-color: #0B0F19;
+        --secondary-background-color: #0E1421;
+        --text-color: #F1F5F9;
+        --hover-color: rgba(99, 102, 241, 0.10);
+
         /* Surfaces */
         --bg-void: #0B0F19;
         --bg-darker: #0B0F19;
@@ -111,6 +118,13 @@ DARK_PALETTE = """
 
 LIGHT_PALETTE = """
     :root {
+        /* ---- Streamlit built-in variable overrides ---- */
+        --primary-color: #4F46E5;
+        --background-color: #F5F7FA;
+        --secondary-background-color: #FFFFFF;
+        --text-color: #17243A;
+        --hover-color: rgba(79, 70, 229, 0.07);
+
         /* Surfaces */
         --bg-void: #F5F7FA;
         --bg-darker: #F5F7FA;
