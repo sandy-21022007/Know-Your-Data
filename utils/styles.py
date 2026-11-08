@@ -113,6 +113,16 @@ DARK_PALETTE = """
         --radius-lg: 8px;
         --radius-md: 6px;
         --radius-sm: 4px;
+
+        /* Heading accents (dark) */
+        --heading-color: #F8FAFC;
+        --heading-gradient: linear-gradient(135deg, #818CF8 0%, #38BDF8 100%);
+        --section-header-bg: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, rgba(56, 189, 248, 0.03) 100%);
+        --section-header-border: rgba(99, 102, 241, 0.25);
+        --section-header-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        --subheader-bg: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, transparent 100%);
+        --subheader-border-color: #6366F1;
+        --subheader-color: #E2E8F0;
     }
 """
 
@@ -198,6 +208,16 @@ LIGHT_PALETTE = """
         --radius-lg: 8px;
         --radius-md: 6px;
         --radius-sm: 4px;
+
+        /* Light-mode heading accents (distinctive colored box & interactive feel) */
+        --heading-color: #312E81;
+        --heading-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+        --section-header-bg: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 50%, #E0E7FF 100%);
+        --section-header-border: rgba(79, 70, 229, 0.22);
+        --section-header-shadow: 0 3px 12px rgba(79, 70, 229, 0.08);
+        --subheader-bg: linear-gradient(90deg, #EEF2FF 0%, rgba(245, 243, 255, 0.55) 70%, transparent 100%);
+        --subheader-border-color: #4F46E5;
+        --subheader-color: #3730A3;
     }
 """
 
@@ -233,31 +253,58 @@ __PALETTE__
     }
 
     /* ==================== TYPOGRAPHY ==================== */
-    h1 {
+    h1, [data-testid="stHeading"] h1 {
         font-size: 1.875rem !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
         line-height: 1.25 !important;
         letter-spacing: -0.025em !important;
-        color: var(--text-primary) !important;
+        color: var(--heading-color) !important;
+        transition: color 0.2s ease;
     }
-    h2 {
-        font-size: 1.5rem !important;
-        font-weight: 600 !important;
+    h2, [data-testid="stHeading"] h2 {
+        font-size: 1.35rem !important;
+        font-weight: 700 !important;
         line-height: 1.3 !important;
         letter-spacing: -0.02em !important;
-        color: var(--text-primary) !important;
+        color: var(--heading-color) !important;
+        background: var(--subheader-bg);
+        border-left: 4px solid var(--subheader-border-color);
+        padding: 9px 15px !important;
+        border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        margin: 1.2rem 0 0.8rem 0 !important;
+        box-shadow: var(--section-header-shadow);
+        transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    h2:hover, [data-testid="stHeading"] h2:hover {
+        transform: translateX(4px);
+        border-left-color: var(--secondary);
     }
     h3, [data-testid="stHeading"] h3 {
-        font-size: 1.25rem !important;
+        font-size: 1.15rem !important;
         font-weight: 600 !important;
         line-height: 1.35 !important;
         letter-spacing: -0.015em !important;
-        color: var(--text-primary) !important;
+        color: var(--subheader-color) !important;
+        background: var(--subheader-bg);
+        border-left: 4px solid var(--subheader-border-color);
+        padding: 7px 13px !important;
+        border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        margin-top: 1rem !important;
         margin-bottom: 0.6rem !important;
+        box-shadow: var(--section-header-shadow);
+        transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    h3:hover, [data-testid="stHeading"] h3:hover {
+        transform: translateX(4px);
+        border-left-color: var(--secondary);
+    }
+    h2 span, [data-testid="stHeading"] h2 span,
+    h3 span, [data-testid="stHeading"] h3 span {
+        color: inherit !important;
     }
     h4, h5, h6 {
         font-weight: 600 !important;
-        color: var(--text-primary) !important;
+        color: var(--heading-color) !important;
     }
 
     p, li, .stMarkdown, .stMarkdown p {
@@ -301,22 +348,42 @@ __PALETTE__
     .section-header {
         display: flex;
         align-items: center;
-        gap: 10px;
-        font-size: 1.375rem;
-        font-weight: 600;
+        gap: 12px;
+        font-size: 1.35rem;
+        font-weight: 700;
         letter-spacing: -0.02em;
-        color: var(--text-primary);
-        padding-left: 12px;
-        border-left: 2px solid var(--primary);
+        color: var(--heading-color);
+        background: var(--section-header-bg);
+        border: 1px solid var(--section-header-border);
+        border-left: 4px solid var(--primary);
+        border-radius: var(--radius-md);
+        padding: 10px 16px;
+        box-shadow: var(--section-header-shadow);
         line-height: 1.3;
-        margin-bottom: 0.35rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.4rem;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: default;
+    }
+    .section-header:hover {
+        transform: translateY(-1px) translateX(3px);
+        border-left-color: var(--secondary);
+        box-shadow: var(--shadow-hover);
+    }
+    .section-header span {
+        color: var(--heading-color) !important;
     }
     .section-subheader {
         font-size: 0.8125rem;
-        font-weight: 400;
+        font-weight: 500;
         color: var(--text-muted);
-        letter-spacing: 0.01em;
-        margin: 0 0 1.4rem 14px;
+        letter-spacing: 0.02em;
+        margin: 0 0 1.2rem 8px;
+        padding: 2px 6px;
+        transition: color 0.2s ease;
+    }
+    .section-subheader:hover {
+        color: var(--primary);
     }
 
     .gradient-text, .cyber-gradient-text, .gradient-text-neural, .gradient-text-accent {
@@ -334,11 +401,12 @@ __PALETTE__
         padding: 20px;
         margin: 14px 0;
         box-shadow: var(--shadow-card);
-        transition: border-color 0.18s ease, background-color 0.18s ease;
+        transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
         position: relative;
     }
     .glass-container:hover, .cyber-panel:hover {
         border-color: var(--border-luminous);
+        box-shadow: var(--shadow-hover);
     }
 
     /* ==================== METRIC CARDS ==================== */
@@ -351,7 +419,7 @@ __PALETTE__
         position: relative;
         overflow: hidden;
         box-shadow: var(--shadow-card);
-        transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+        transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
     }
     .metric-card::before {
         content: '';
@@ -364,6 +432,7 @@ __PALETTE__
         opacity: 0.75;
     }
     .metric-card:hover {
+        transform: translateY(-2px);
         border-color: var(--border-luminous);
         box-shadow: var(--shadow-hover);
     }
@@ -1005,6 +1074,11 @@ __PALETTE__
         margin-right: 6px;
         margin-bottom: 4px;
         vertical-align: middle;
+        transition: transform 0.18s ease, filter 0.18s ease;
+    }
+    .badge:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.08);
     }
     .badge-primary, .badge-info {
         background: var(--accent-soft);
