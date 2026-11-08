@@ -1146,9 +1146,35 @@ __PALETTE__
     }
     section[data-testid="stSidebar"] .nav-link:hover {
         background-color: var(--bg-hover) !important;
+        color: var(--text-primary) !important;
     }
     section[data-testid="stSidebar"] .nav-link-selected {
         box-shadow: inset 2px 0 0 0 var(--primary);
+    }
+    section[data-testid="stSidebar"] .nav-link-selected:hover {
+        background-color: var(--accent-soft-strong) !important;
+        color: var(--text-primary) !important;
+    }
+
+    /* Force streamlit-option-menu to respect theme variables */
+    .nav-link {
+        color: var(--text-secondary) !important;
+    }
+    .nav-link:hover {
+        background-color: var(--bg-hover) !important;
+        color: var(--text-primary) !important;
+    }
+    .nav-link-selected {
+        background: var(--accent-soft-strong) !important;
+        color: var(--text-primary) !important;
+        border: 1px solid var(--border-luminous) !important;
+    }
+    .nav-link-selected:hover {
+        background: var(--accent-soft-strong) !important;
+        color: var(--text-primary) !important;
+    }
+    .nav-icon {
+        color: var(--secondary) !important;
     }
     section[data-testid="stSidebar"] [role="radiogroup"] label {
         font-size: 0.8125rem !important;

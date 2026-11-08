@@ -95,6 +95,10 @@ def main():
                         "transition": "all 0.2s ease",
                         "border": "1px solid transparent",
                     },
+                    "nav-link-hover": {
+                        "background-color": "var(--bg-hover)",
+                        "color": "var(--text-primary)",
+                    },
                     "nav-link-selected": {
                         "background": "var(--accent-soft-strong)",
                         "color": "var(--text-primary)",
